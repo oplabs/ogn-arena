@@ -1,0 +1,8 @@
+{
+  "name": "contracts",
+  "version": "1.0.0",
+  "description": "Contracts for the Arena",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true
+}

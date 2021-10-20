@@ -1,0 +1,26 @@
+{
+  "name": "ognArena",
+  "private": true,
+  "version": "0.0.1",
+  "description": "OGN NFT battle Arena",
+  "main": "index.js",
+  "author": "Yu Pan <yupan@originprotocol.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap --no-ci --progress"
+  },
+  "workspaces": {
+    "packages": [
+      "contracts",
+      "dapp"
+    ],
+    "nohoist": [
+    ]
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
