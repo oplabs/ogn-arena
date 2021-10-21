@@ -10,10 +10,12 @@
     "node": "14.x"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --no-ci --progress"
+    "bootstrap": "lerna bootstrap --no-ci --progress",
+    "lint": "lerna run lint --stream"
   },
   "workspaces": {
     "packages": [
+      "common",
       "contracts",
       "dapp"
     ],
