@@ -1,0 +1,75 @@
+Skull Height: 1
+Skull Width: 32
+Skull Back Scale: 21
+Skull Back Depth: 38
+Forehead Temple Width: 91
+Forehead Curve: -30
+Brow Height: 92
+Brow Lower: 2
+Brow Center Width: 79
+Brow Depth: -13
+Brow Angle: -100
+Eye Scale: -85
+Eye Height: -99
+Eye Width: 38
+Eye Outer Inner Width: -24
+Eye Angle: -4
+Eye Depth: 60
+Eye Lower Depth: -5
+Eyelid Lower Height: -60
+Eyelid Lower Inner Height: -65
+Eyeball Scale: 91
+Eyeball Shrink: 62
+Eyeball Height: -21
+Eyeball Width: -48
+Eyeball Move: -21
+Eyeball Depth: -92
+Ear Scale: -39
+Ear Scale Height: -85
+Ear Height: 63
+Ear Angle Out: -15
+Ear Angle Top: -6
+Ear Depth: 33
+Earlobe Define: 89
+Ear Contour: -4
+Cheek Bone Scale: 86
+Cheek Bone Height: -3
+Cheek Hollow: 100
+Nose Scale: -27
+Nose Width: -11
+Nose Height: 27
+Nose Depth: -4
+Nose Ridge Upper Depth: 71
+Nose Ridge Curve A: -46
+Nose Tip Height: -48
+Nostril Width: 1
+Mouth  Scale: -82
+Mouth Width: 69
+Mouth Height: 56
+Mouth Depth: 10
+Philtrum Width: 4
+Philtrum Tone: 35
+Lip Thin A: 45
+Teeth Upper Scale: 18
+Teeth Lower Scale: -9
+Teeth Upper Height: 18
+Teeth Lower Height: -24
+Teeth Upper Scale Height: 73
+Teeth Lower Scale Height: 99
+Teeth Upper Scale Width: -19
+Teeth Lower Scale Width: 56
+Teeth Upper Depth: 39
+Teeth Lower Depth: -10
+Teeth Upper Scale Depth: -98
+Teeth Lower Scale Depth: -29
+Teeth Upper Offset: -45
+Teeth Lower Offset: -49
+Jaw  Scale: 85
+Jaw Height: 45
+Jaw Corner Height: 70
+Jaw Outer Define: 73
+Chin Height: 81
+Chin Width: 34
+Chin Depth A: 9
+Neck Scale: -5
+Neck Length: 93
