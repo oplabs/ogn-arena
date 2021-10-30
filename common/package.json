@@ -11,6 +11,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
+    "fantasy-content-generator": "^4.8.2",
     "pg": "^8.7.1",
     "pino": "^7.0.3",
     "sequelize": "^6.7.0",

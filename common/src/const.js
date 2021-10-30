@@ -1903,8 +1903,6 @@ const timeZones = [
 ]
 
 module.exports = {
-  NFT_CONTRACT_VERSION,
-  NFT_CONTRACT,
   POLYGON_NFT_CONTRACT,
   POLYGON_CONTRACT_VERSION,
   timeZones
