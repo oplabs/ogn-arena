@@ -14,11 +14,13 @@ yarn
 
 ```start the db
 cd common
+cp dev.env .env
 yarn migrate
 yarn seed
 ```
 ```start the web site
 cd dapp
+cp ../common/.env .env
 yarn dev
 
 ```

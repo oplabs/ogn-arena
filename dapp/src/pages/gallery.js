@@ -1,3 +1,4 @@
+import Link from 'next/link'
 
 function AttrDisplay({name, attr}) {
     return <div className="row"><div className="col-3">{name}:</div><div className="col-9" style={{position:'relative'}}>{attr}
@@ -12,6 +13,7 @@ function Gallery({characters}) {
     <div className="row">
     {characters.map( c => 
         <div key={c.id} className="col-sm" >
+          <Link href={`/heroes/${c.id}`}>
           <div className="container border rounded-1 m-1" style={{minWidth:300}}>
             <div className="row">
               <h3>{c.name}</h3>
@@ -31,6 +33,7 @@ function Gallery({characters}) {
               </div>
             </div>
           </div>
+          </Link>
         </div>
       )}
     </div>
