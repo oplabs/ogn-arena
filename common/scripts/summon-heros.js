@@ -74,8 +74,9 @@ const summon = async () => {
       character.attrs = attrs;
       console.log("Character: ", character);
       console.log("totalAttrs:", total)
+      const charClass = "fighter";
       const {name,firstName, lastName, gender,race} = character;
-      await Hero.create({name, firstName, lastName, gender, race, resourceId:id, ...attrs});
+      await Hero.create({charClass, name, firstName, lastName, gender, race, resourceId:id, ...attrs});
     }
   }
 

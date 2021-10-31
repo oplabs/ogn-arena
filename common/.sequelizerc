@@ -1,4 +1,5 @@
 const path = require('path')
+console.log("sequelize rc called.");
 
 module.exports = {
   'models-path': path.resolve('src', 'models'),

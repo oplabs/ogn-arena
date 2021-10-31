@@ -1,5 +1,7 @@
 'use strict'
+console.log('dot env?');
 require('dotenv').config()
+console.log('dot env?', process.env.DATABASE_URL);
 
 // DB config for migrations only.
 // The config used by the app is under src/models/index.js
