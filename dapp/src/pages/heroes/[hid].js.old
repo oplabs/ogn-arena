@@ -10,17 +10,17 @@ function AttrDisplay({name, attr}) {
 
 const Hero = ({hero}) => {
   //const buildUrl = '/3d/default/Build'
-  const buildUrl = 'http://localhost:8080/Build'
+  const buildUrl = `/pub/${hero.resourceId}`
   const [unityContext, setUnityContext] = useState()
 
   useEffect(()=> {
     if (typeof window !== "undefined")
     {
       const context = new UnityContext({
-        loaderUrl: buildUrl + "/AsianLod.loader.js",
-        dataUrl: buildUrl + '/AsianLod.data.gz',
-        frameworkUrl: buildUrl + "/AsianLod.framework.js.gz",
-        codeUrl: buildUrl + "/AsianLod.wasm.gz",
+        loaderUrl: buildUrl + `/${hero.resourceId}.loader.js`,
+        dataUrl: buildUrl + `/${hero.resourceId}.data.gz`,
+        frameworkUrl: buildUrl + `/${hero.resourceId}.framework.js.gz`,
+        codeUrl: buildUrl + `/${hero.resourceId}.wasm.gz`,
         companyName: "Origin Protocol Inc.",
         productName: "OgnArena",
         productVersion: "0.1",

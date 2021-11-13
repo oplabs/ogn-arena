@@ -9,10 +9,10 @@ function AttrDisplay({name, attr}) {
 
 const Hero = ({hero}) => {
   //const buildUrl = '/3d/default/Build'
-  const remoteUrl = 'http://localhost:8080'
+  const remoteUrl = `/pub/heroes/?h=${hero.resourceId}`
 
   return <div>
-      <div className="container border rounded-1 m-1" style={{minWidth:300, position:'absolute', zIndex:10}}>
+      <div className="container border rounded-1 m-1" style={{width:250, position:'absolute', zIndex:10}}>
         <div className="row">
           <h3>{hero.name}</h3>
           <h3>{hero.charClass}</h3>
@@ -28,7 +28,9 @@ const Hero = ({hero}) => {
           </div>
         </div>
       </div>
-    <iframe src={remoteUrl} heigth={'100%'} width={'100%'} allowfullscreen={true} style={{height:800}} />
+    <div>
+	    <iframe src={remoteUrl} heigth={'100%'} width={'100%'} allowFullScreen={true} style={{height:800}} />
+    </div>
   </div>
 }
 

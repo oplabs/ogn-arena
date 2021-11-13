@@ -13,6 +13,7 @@ function roll(numDice, sides) {
 const ATTRS = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
 
 const FIGHTER_PRIORTY = ['str', 'con', 'dex'];
+const MAGE_PRIORTY = ['int'];
 
 function reserveStats(rolls, priority, attrs) {
   for(const p of priority) {
@@ -37,6 +38,21 @@ function assignFighterAttrs(rolls) {
   return attrs;
 }
 
+function assignMageAttrs(rolls) {
+  const attrs = {}
+  // pick strength first
+  reserveStats(rolls, MAGE_PRIORTY, attrs);
+  
+  for (const a of ATTRS) {
+    if (!MAGE_PRIORTY.includes(a)) {
+      attrs[a] = rolls.shift();
+    }
+  }
+
+  return attrs;
+}
+
+
 const summon = async () => {
   const resourceDir = process.env.RESOURCE_DIRECTORY
 
@@ -45,8 +61,10 @@ const summon = async () => {
   const dirs = await fs.readdirSync(resourceDir);
 
   for(const d of dirs) {
-    if (d.endsWith('.jpg')) {
-      const id = d.slice(0, -4);
+    if (["index.html","TemplateData"].includes(d)) {
+ 	continue;
+    } else if (d) {
+      const id = d;
       console.log('Summoning...', id);
 
       if(await Hero.findOne({where:{resourceId:id}}))
@@ -56,26 +74,27 @@ const summon = async () => {
         continue;
       }
       console.log("not found..");
+      const parts = id.split("_");
+      const gender = parts[0].toLowerCase();
+      const charClass = parts[1].toLowerCase();
 
       rolls = [];
       for(let i = 0; i < 6; i++) {
         rolls.push(roll(3, 6));
       }
       const total = rolls.reduce( (a, acc) => a+ acc)
-      attrs = assignFighterAttrs(rolls);
-      //console.log('attrs: ', attrs);
-      
+      const attrs = charClass == "mage" ? assignMageAttrs(rolls) : assignFighterAttrs(rolls);
+
       let data
       do {
-        data = fcg.Names.generate({race:'human'}); // can set gender
+        data = fcg.Names.generate({race:'human', gender}); // can set gender
       } while(await Hero.findOne({where:{name:data.name}}))
 
       const character = data.formattedData;
       character.attrs = attrs;
       console.log("Character: ", character);
       console.log("totalAttrs:", total)
-      const charClass = "fighter";
-      const {name,firstName, lastName, gender,race} = character;
+      const {name,firstName, lastName, race} = character;
       await Hero.create({charClass, name, firstName, lastName, gender, race, resourceId:id, ...attrs});
     }
   }
