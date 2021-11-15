@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     resourceId:DataTypes.STRING,
     ownedBy: DataTypes.INTEGER,
     walletAddress: DataTypes.STRING,
+    rating: DataTypes.INTEGER,
+    ccAttrs: DataTypes.JSONB,
+    badParts: DataTypes.JSONB
   }, {
     sequelize,
     modelName: 'Hero',

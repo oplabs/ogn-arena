@@ -1,6 +1,8 @@
 
 const partGroups = {
   nose :[
+    "Nose Depth",
+    "Nose Pinch",
     "Nose Scale",
     "Nose Height",
     "Nose Tip Depth",

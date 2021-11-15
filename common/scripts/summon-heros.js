@@ -1,4 +1,5 @@
 const {Hero} = require('common')
+const path = require('path')
 const fs = require('fs')
 const fcg = require('fantasy-content-generator')
 
@@ -21,6 +22,26 @@ function reserveStats(rolls, priority, attrs) {
     attrs[p] = rolls[maxIndex];
     //take out the max
     rolls.splice(maxIndex, 1);
+  }
+}
+
+function readCCAttrs(path) {
+  const content = fs.readFileSync(path, "utf8")
+  if (content) {
+    const data = {}
+    for (const kv of content.split(/\r?\n/)) {
+      const [k, v] = kv.split(':')
+      if(!data[k]) {
+        data[k] = v
+      } else {
+        const k_head = k + "_head"
+        if (data[k_head]){
+          console.log("REPEAT of " + k_head)
+        }
+        data[k + "_head"] = v
+      }
+    }
+    return data
   }
 }
 
@@ -67,8 +88,18 @@ const summon = async () => {
       const id = d;
       console.log('Summoning...', id);
 
-      if(await Hero.findOne({where:{resourceId:id}}))
+      const attrsFile = path.join(resourceDir, d, "attrs.txt");
+
+      const existing = await Hero.findOne({where:{resourceId:id}})
+      if(existing)
       {
+        if (!existing.ccAttrs) {
+          const ccAttrs = readCCAttrs(attrsFile)
+          if (ccAttrs) {
+            existing.ccAttrs = ccAttrs;
+            await existing.save();
+          }
+        }
         console.log("found..");
         //already generated
         continue;
@@ -90,12 +121,13 @@ const summon = async () => {
         data = fcg.Names.generate({race:'human', gender}); // can set gender
       } while(await Hero.findOne({where:{name:data.name}}))
 
+      const ccAttrs = readCCAttrs(attrsFile)
       const character = data.formattedData;
       character.attrs = attrs;
       console.log("Character: ", character);
       console.log("totalAttrs:", total)
       const {name,firstName, lastName, race} = character;
-      await Hero.create({charClass, name, firstName, lastName, gender, race, resourceId:id, ...attrs});
+      await Hero.create({charClass, ccAttrs, name, firstName, lastName, gender, race, resourceId:id, ...attrs});
     }
   }
 
