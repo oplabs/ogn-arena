@@ -14,7 +14,7 @@ function Gallery({characters}) {
     {characters.map( c => 
         <div key={c.id} className="col-sm" >
 	    {/*<a href={`/pub/heroes/${c.resourceId}`} style={{color:'black', textDecoration:'none'}}>*/}
-	  <Link href={`/heroes/${c.id}`}>
+	  <Link href={`/hero/${c.id}`}>
           <div className="container border rounded-1 m-1" style={{minWidth:300, maxWidth:350}}>
             <div className="row">
               <h3>{c.name}</h3>
