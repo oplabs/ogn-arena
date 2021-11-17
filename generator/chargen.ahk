@@ -1,11 +1,12 @@
+BlockInput, MouseMove
 FormatTime, StartTime, T12, Time
 
-; buffing delays smooths over many interactions
+; buffing delays smooth over many interactions
 SetWinDelay, 200
 SetKeyDelay, 50
 SetMouseDelay, 25
 
-NUM_TO_GENERATE := 999
+NUM_TO_GENERATE := 50
 PROJECT_DIR := "C:\Users\codex\Downloads\"
 BATCH_DIR := "C:\Users\codex\Documents\chargen\generated_" . A_YYYY . A_MM . A_DD . A_Hour . A_Min . A_Sec . "\"
 MOTIONS_DIR := "C:\Users\Public\Documents\Reallusion\Template\Character Creator 3 Template\Motion\"
@@ -93,7 +94,6 @@ rand_morph_val(min, max) {
 }
 
 wait_loading() {
-    ; todo will activating the window first help with timing issues?
     WinWaitActive, ^Character Creator 3$
     WinWaitClose, ^Character Creator 3$
 }
@@ -103,6 +103,7 @@ set_param(coordinates, value)
   Click, %coordinates%
   Send, ^a
   clip_send(value)
+  sleep 50 ; if we're setting a param there is usually a UI update
 }
 
 _set_morph(name, value) {
@@ -506,9 +507,15 @@ while num_generated <= NUM_TO_GENERATE
             Click, %CONTENT_ITEM1% 2 ; Beard
             Click, %CONTENT_SEARCH%
             clip_send(beard_str)
-            Sleep, 2000 ; hair and beard search have stalled us in the past
+            Sleep, 300 ; hair and beard search have stalled us in the past
             Click, %CONTENT_ITEM1% 2 ; first result
-            wait_loading()
+
+            WinWaitActive, ^Character Creator 3$,,5
+            if ErrorLevel {
+                ; the window never loaded click again
+                Click, %CONTENT_ITEM1% 2
+            }
+            WinWaitClose, ^Character Creator 3$
         }
     }
 
@@ -520,9 +527,16 @@ while num_generated <= NUM_TO_GENERATE
         Click, %SMART_GALLERY_SEARCH%
         Send, ^a
         clip_send(hair_str)
-        Sleep, 2000 ; we sometimes stall out after a gallery search
+        Sleep, 300 ; we sometimes stall out after a gallery search
         Click, %SMART_GALLERY_ITEM1% 2
-        wait_loading()
+
+        WinWaitActive, ^Character Creator 3$,,5
+        if ErrorLevel {
+            ; the window never loaded click again
+            Click, %SMART_GALLERY_ITEM1% 2
+        }
+        WinWaitClose, ^Character Creator 3$
+
         Click, %DESELECT%
     }
 
@@ -546,23 +560,59 @@ while num_generated <= NUM_TO_GENERATE
     }
 
     log_fh.write("Head`n")
-    Click, %MORPH_HEAD%
-    set_morph(primary_head_str, 80, 100)
+    if (gender_str == "Male") {
+        ; males are looking good, so isolate their head logic here for now:
+        Click, %MORPH_HEAD%
+        set_morph(primary_head_str, 80, 100)
 
-    extra_heads := 4
-    while extra_heads {
-        Random, extra_head_index, 1, head_types.MaxIndex()
-        extra_head_str := head_types[extra_head_index]
-        if (extra_heads == 1) { ; final heads are "secondary" and get extra influence
-            min_morph := 40
-            max_morph := 70
-        } else {
-            min_morph := 1
-            max_morph := 30
+        extra_heads := 4
+        while extra_heads {
+            Random, extra_head_index, 1, head_types.MaxIndex()
+            extra_head_str := head_types[extra_head_index]
+            if (extra_heads == 1) { ; final heads are "secondary" and get extra influence
+                min_morph := 40
+                max_morph := 70
+            } else {
+                min_morph := 5
+                max_morph := 30
+            }
+            set_morph(extra_head_str, min_morph, max_morph)
+            head_types.remove(extra_head_index)
+            extra_heads -= 1
         }
-        set_morph(extra_head_str, min_morph, max_morph)
-        head_types.remove(extra_head_index)
-        extra_heads -= 1
+    } else {
+        ; female head logic:
+        Click, %MORPH_HEAD%
+
+        Random, use_primary_chance, 0, 1
+        if use_primary_chance {
+            ; a strong head, and weak extra heads
+            set_morph(primary_head_str, 80, 100)
+            primary_head_str
+            medium_heads := 0
+            weak_heads := 3
+        } else {
+            ; a few medium strength heads, and a couple very weak extras
+            set_morph(primary_head_str, 35, 55) ; the first medium head uses primary to reinforce gender
+            medium_heads := 2
+            weak_heads := 2
+        }
+
+        while (medium_heads or weak_heads) {
+            if medium_heads {
+                min_morph := 35
+                max_morph := 55
+                medium_heads -= 1
+            } else if weak_heads {
+                min_morph := 5
+                max_morph := 20
+                weak_heads -= 1
+            }
+            Random, extra_head_index, 1, head_types.MaxIndex()
+            extra_head_str := head_types[extra_head_index]
+            set_morph(extra_head_str, min_morph, max_morph)
+            head_types.remove(extra_head_index)
+        }
     }
 
     ; Full Head additional attributes
@@ -791,7 +841,7 @@ while num_generated <= NUM_TO_GENERATE
         Click, Down
         MouseMove, 702, 672
     } else {
-        MouseMove, 702, 762
+        MouseMove, 702, 792
         Click, Down
         MouseMove, 702, 307
     }
@@ -888,5 +938,3 @@ log_fh.close()
 
 MsgBox %StartTime% %EndTime%
 Exit
-
-; TODO: Tongue, Eyelash, Nail, All Body
