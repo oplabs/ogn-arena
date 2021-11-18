@@ -6,7 +6,7 @@ SetWinDelay, 200
 SetKeyDelay, 50
 SetMouseDelay, 25
 
-NUM_TO_GENERATE := 50
+NUM_TO_GENERATE := 999
 PROJECT_DIR := "C:\Users\codex\Downloads\"
 BATCH_DIR := "C:\Users\codex\Documents\chargen\generated_" . A_YYYY . A_MM . A_DD . A_Hour . A_Min . A_Sec . "\"
 MOTIONS_DIR := "C:\Users\Public\Documents\Reallusion\Template\Character Creator 3 Template\Motion\"
@@ -128,6 +128,7 @@ set_morph(name, min:=-100, max:=100) {
     if (rand_val != 0) {
         _set_morph(name, rand_val)
     }
+    return rand_val
 }
 
 set_morph_norm(name, min:=-100, max:=100) {
@@ -286,14 +287,19 @@ while num_generated <= NUM_TO_GENERATE
                        , "Long wavy ponytail", "Side bang pigtail braid", "Side part bang_mid", "Side swept braid"
                        , "Side swept ponytail", "Top knot long ponytail", "Top knot pigtail braid", "Top knot samurai"
                        , "Top knot short ponytail", "Two curly ponytails", "Two high space buns", "Two low space buns"
-                       , "Two pigtail braids", "Two ponytails", "Wavy medium ponytail", "Light Skin"]
+                       , "Two pigtail braids", "Two ponytails", "Wavy medium ponytail", "Light Skin.cchair"
+                       , "Bun.ccHair", "Dawn_MorphHair.ccHair", "Dusk_Hair.ccHair", "High Ponytail.ccHair"
+                       , "Long Hair.ccHair", "Short Hair.ccHair"]
 
         Random, primary_head_bool, 1, female_head_types.MaxIndex()
         primary_head_str := female_head_types[primary_head_bool]
         female_head_types.remove(primary_head_bool)
+
         body_types := ["CC3+_Neutral Female", "CC3+_Katherine_Body", "CC3+_Jody_Body", "Body HA Female Athletic"
                        , "Body HA Female Asian"]
         herculean_bool := 0 ; 0% chance at herculean if female
+        ; 1: default, 2: clean
+        Random, skin_val, 1, 2
     } else {
         gender_str := "Male"
         Random, primary_head_bool, 1, head_types.MaxIndex()
@@ -301,15 +307,18 @@ while num_generated <= NUM_TO_GENERATE
         head_types.remove(primary_head_bool)
         body_types := ["CC3+_Neutral Male", "CC3+_Kevin_Body"]
         hair_types := ["Bald", "Top knot long ponytail", "Top knot pigtail braid", "Top knot samurai"
-                       , "Top knot short ponytail", "Light Skin"]
+                       , "Top knot short ponytail", "Light Skin.cchair", "Bun.ccHair", "Dawn_MorphHair.ccHair"
+                       , "Dusk_Hair.ccHair", "Long Hair.ccHair", "Short Hair.ccHair"]
         Random, herculean_bool, 1, 20 ; 5% chance at herculean if male
+        ; 1: default, 2: clean, 3: khulan
+        Random, skin_val, 1, 3
     }
 
     ; == Hair Type
     bangs_hairs := ["Curly long ponytail", "Half up short", "Half up straight" , "Half up wavy long"
         , "Side bang pigtail braid", "Side part bang_mid" , "Two curly ponytails", "Two high space buns"
         , "Two low space buns" , "Two pigtail braids", "Wavy medium ponytail"]
-    no_bangs_heads := ["Samantha", "Magda", "Flora"]
+    no_bangs_heads := ["Samantha", "Magda", "Flora", "Ruben"]
 
     ; If a head was selected that doesnt work well with bangs, remove bangs hairs
     if in_array(primary_head_str, no_bangs_heads) {
@@ -326,10 +335,11 @@ while num_generated <= NUM_TO_GENERATE
     hair_str := hair_types[hair_bool]
 
     ; If a hair with bangs was selected, remove heads that do no work well with bangs:
+    ; this should help with secondary head selection
     if in_array(hair_str, bangs_hairs) {
         i := female_head_types.MaxIndex()
         while i > 0 {
-            if in_array(female_head_types[i], ["Samantha", "Magda", "Flora"]) {
+            if in_array(female_head_types[i], no_bangs_heads) {
                 female_head_types.remove(i)
             }
             i -= 1
@@ -432,32 +442,23 @@ while num_generated <= NUM_TO_GENERATE
     beard_root := Format("{:06X}", beard_root)
     beard_end := Format("{:06X}", beard_end)
 
-    if (hair_str != "Bald") {
-        if (hair_str == "Light Skin") {
-            ; "Light Skin" hair does not support "Root Map" coloring:
-            process_light_skin := 1
-            Random, hair_green, -100, 100
-            Random, hair_red, -100, 100
-            Random, hair_blue, -100, 100
-            attrs_fh.write("HairGreen: " . hair_green . "`n")
-            attrs_fh.write("HairRed: " . hair_red . "`n")
-            attrs_fh.write("HairBlue: " . hair_blue . "`n")
-        } else {
-            process_hair := 1
-            attrs_fh.write("HairRoot: " . hair_root . "`n")
-            attrs_fh.write("HairEnd: " . hair_end . "`n")
-            if in_array(hair_str, ["Curly long ponytail", "Half up short", "Side bang pigtail braid"]) {
-                process_baby_hair := 1
-            }
-            if in_array(hair_str, ["Side swept braid", "Side swept ponytail"]) {
-                process_hair1 := 1
-                process_hair2 := 1
-            }
+    CCHAIRS := ["Bun.ccHair", "Dawn_MorphHair.ccHair", "Dusk_Hair.ccHair", "High Ponytail.ccHair"
+              , "Long Hair.ccHair", "Short Hair.ccHair", "Light Skin.cchair", "Bald"]
+    ; TODO: color cchairs
+    if not in_array(hair_str, CCHAIRS) {
+        process_hair := 1
+        attrs_fh.write("HairRoot: " . hair_root . "`n")
+        attrs_fh.write("HairEnd: " . hair_end . "`n")
+        if in_array(hair_str, ["Curly long ponytail", "Half up short", "Side bang pigtail braid"]) {
+            process_baby_hair := 1
+        }
+        if in_array(hair_str, ["Side swept braid", "Side swept ponytail"]) {
+            process_hair1 := 1
+            process_hair2 := 1
         }
     }
 
     ; Randomly determine skin value, and determine appropriate project file based on class, gender, skin
-    Random, skin_val, 1, 2
     class_project_path := PROJECT_DIR . class_str . "BaseBlank" . gender_str . skin_val . ".ccProject"
     attrs_fh.write("SkinVal: " . skin_val . "`n")
 
@@ -537,6 +538,8 @@ while num_generated <= NUM_TO_GENERATE
         }
         WinWaitClose, ^Character Creator 3$
 
+        ; TODO: if we processed materials here, instead of deselecting, all of the
+        ;       hair components would already be selected.   wouldn't need to parse the list.
         Click, %DESELECT%
     }
 
@@ -546,23 +549,28 @@ while num_generated <= NUM_TO_GENERATE
     long_click(MORPH_SCROLL_UP)
     Click, %MORPH_BODY%
     ; Set body morphs
-    set_morph(primary_body_str, 80, 100)
-    set_morph(secondary_body_str, 1, 80)
+    set_morph(primary_body_str, 70, 100)
+    ; second body morph removed: male hands too big, females too short.
+    ; set_morph(secondary_body_str, 1, 80)
 
     if (herculean_bool == 1) {
-        set_morph("Body HA Male Herculean", 15, 55) 
+        herc_morph := set_morph("Body HA Male Herculean", 15, 55)
     } else {
         ; use Caleb body for muscles if not herculean
         Switch gender_str {
-            case "Female": set_morph("CC3+_Caleb_Body", 0, 60)
-            case "Male": set_morph("CC3+_Caleb_Body", 10, 100)
+            case "Female": set_morph("CC3+_Caleb_Body", 5, 45)
+            case "Male": set_morph("CC3+_Caleb_Body", 10, 80)
         }
     }
 
     log_fh.write("Head`n")
+    Click, %MORPH_HEAD%
+
+    if (herculean_bool == 1) {
+        set_morph("Head HA Male Herculean", herc_morph-10, herc_morph)
+    }
     if (gender_str == "Male") {
         ; males are looking good, so isolate their head logic here for now:
-        Click, %MORPH_HEAD%
         set_morph(primary_head_str, 80, 100)
 
         extra_heads := 4
@@ -582,13 +590,10 @@ while num_generated <= NUM_TO_GENERATE
         }
     } else {
         ; female head logic:
-        Click, %MORPH_HEAD%
-
         Random, use_primary_chance, 0, 1
         if use_primary_chance {
             ; a strong head, and weak extra heads
             set_morph(primary_head_str, 80, 100)
-            primary_head_str
             medium_heads := 0
             weak_heads := 3
         } else {
