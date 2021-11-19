@@ -150,7 +150,7 @@ set_hair_colors(root, end) {
     Click, 1606, 569
     Click, 1643, 817
 
-    ; hair BASE // unused
+    ; hair BASE // currently unused
     ; Click, 1880, 610
     ; WinWaitActive, Select Color
     ; set_html_hair_color(root)
@@ -249,7 +249,6 @@ FileCreateDir, %BATCH_DIR%
 sleep, 20
 FileCopy %A_ScriptFullPath%, %BATCH_DIR%
 sleep, 20
-log_fh := FileOpen(BATCH_DIR . "log.txt", "w")
 
 SetTitleMatchMode, RegEx
 WinActivate, %MAIN_RE%
@@ -295,8 +294,7 @@ while num_generated <= NUM_TO_GENERATE
         primary_head_str := female_head_types[primary_head_bool]
         female_head_types.remove(primary_head_bool)
 
-        body_types := ["CC3+_Neutral Female", "CC3+_Katherine_Body", "CC3+_Jody_Body", "Body HA Female Athletic"
-                       , "Body HA Female Asian"]
+        body_types := ["CC3+_Neutral Female", "CC3+_Katherine_Body", "CC3+_Jody_Body", "Body HA Female Athletic"]
         herculean_bool := 0 ; 0% chance at herculean if female
         ; 1: default, 2: clean
         Random, skin_val, 1, 2
@@ -462,8 +460,6 @@ while num_generated <= NUM_TO_GENERATE
     class_project_path := PROJECT_DIR . class_str . "BaseBlank" . gender_str . skin_val . ".ccProject"
     attrs_fh.write("SkinVal: " . skin_val . "`n")
 
-    log_fh.write("Load Project`n")
-
     ; Open fresh base project file
     Send, ^o ;ctrl+o
     WinWaitActive Open
@@ -486,6 +482,8 @@ while num_generated <= NUM_TO_GENERATE
     wait_loading()
     WinWaitActive, %MAIN_RE%
 
+    Sleep, 2000 ; cool down UI after loading project, may fix hair/beard
+
     Send, ^2 ; set default workspace for reliable clicks
     Send, ^1 ; ctrl+1 one time should enable list view on menus
 
@@ -493,14 +491,12 @@ while num_generated <= NUM_TO_GENERATE
         beard_types := ["country", "cowboy", "thick", "viking"]
         Random, beard_chance, 0, beard_types.MaxIndex()
         if (beard_chance > 0) {
-            log_fh.write("Beard`n")
-
             process_beard := 1
             beard_str := beard_types[beard_chance]
             attrs_fh.write("Beard: " . beard_str . "`n")
             attrs_fh.write("BeardRoot: " . beard_root . "`n")
             attrs_fh.write("BeardEnd: " . beard_end . "`n")
-            
+
             Click, %CONTENT_PANE%
             Click, %CONTENT_HAIR%
             Click, %CONTENT_HAIR_TEMPLATE%
@@ -514,16 +510,18 @@ while num_generated <= NUM_TO_GENERATE
             WinWaitActive, ^Character Creator 3$,,5
             if ErrorLevel {
                 ; the window never loaded click again
+                ; xxx: maybe the window is losing focus for some reason?
+                WinActivate, %MAIN_RE%
                 Click, %CONTENT_ITEM1% 2
             }
             WinWaitClose, ^Character Creator 3$
         }
     }
+    ; all attrs should be logged by now
+    attrs_fh.close()
 
     ; skip hair selection if bald was chosen
     if (hair_str != "Bald") {
-        log_fh.write("Hair`n")
-
         Click, %SMART_GALLERY_TAB%
         Click, %SMART_GALLERY_SEARCH%
         Send, ^a
@@ -534,6 +532,8 @@ while num_generated <= NUM_TO_GENERATE
         WinWaitActive, ^Character Creator 3$,,5
         if ErrorLevel {
             ; the window never loaded click again
+            ; xxx: maybe the window is losing focus for some reason?
+            WinActivate, %MAIN_RE%
             Click, %SMART_GALLERY_ITEM1% 2
         }
         WinWaitClose, ^Character Creator 3$
@@ -542,8 +542,6 @@ while num_generated <= NUM_TO_GENERATE
         ;       hair components would already be selected.   wouldn't need to parse the list.
         Click, %DESELECT%
     }
-
-    log_fh.write("Body`n")
 
     Click, %MORPH_PANE%
     long_click(MORPH_SCROLL_UP)
@@ -563,7 +561,6 @@ while num_generated <= NUM_TO_GENERATE
         }
     }
 
-    log_fh.write("Head`n")
     Click, %MORPH_HEAD%
 
     if (herculean_bool == 1) {
@@ -620,68 +617,11 @@ while num_generated <= NUM_TO_GENERATE
         }
     }
 
-    ; Full Head additional attributes
-    ; set_morph_norm("Face Angle")
-    ; set_morph_norm("Face Center Depth")
-    ; set_morph_norm("Face Heart")
-    ; set_morph_norm("Face Narrow")
-    ; set_morph_norm("Face Square")
-    ; set_morph_norm("Face Old")
-
-    ; Brow
-    ; set_morph("Brow Height", -40, 40)
-    ; set_morph("Brow Angle", -40, 40)
-    ; set_morph_norm("Brow Height")
-    ; set_morph_norm("Brow Angle")
-
-    ; Ear
-    ; set_morph("Ear Scale", -20, 20)
-    ; set_morph("Ear Height", -60, 60)
-    ; set_morph("Ear Angle Out", -30, 30)
-    ; set_morph("Ear Angle Top", -30, 30)
-    ; set_morph("Ear Depth", -30, 30)
-    ; set_morph_norm("Ear Scale")
-    ; set_morph_norm("Ear Height")
-    ; set_morph_norm("Ear Angle Out")
-    ; set_morph_norm("Ear Angle Top")
-    ; set_morph_norm("Ear Depth")
-
-    ; Nose
-    ; set_morph("Nose Scale", -30, 30)
-    ; set_morph("Nose Height", -30, 30)
-    ; set_morph("Nose Depth", -30, 30)
-    ; set_morph("Nose Pinch", -30, 30)
-    ; set_morph("Nose Tip Height", -30, 30)
-    ; set_morph("Nose Tip Depth", -30, 30)
-    ; set_morph("Nose Tip Point", 0, 60)
-    ; set_morph("Nose Tip Round", 0, 60)
-
-    ; set_morph("Nose Scale")
-    ; set_morph("Nose Height")
-    ; set_morph("Nose Depth")
-    ; set_morph("Nose Pinch")
-    ; set_morph("Nose Tip Height")
-    ; set_morph("Nose Tip Depth")
-
-    ; Mouth
-    ; set_morph("Mouth Scale", -30, 20)
-    ; set_morph("Mouth Height", -20, 20)
-    ; set_morph("Mouth Angle", -30, 30)
-    
-    ; Neck
-    ; set_morph("Neck Length", -15, 15)
-    ; set_morph("Neck Scale", -15, 15)
-    ; set_morph_norm("Neck Length")
-    ; set_morph_norm("Neck Scale")
-
-    ; all attrs should be logged by now
-    attrs_fh.close()
-
     ; iterate through materials list
     Click %MATERIALS_PANE%
     materials_scroll_top()
 
-    while (process_eye_left == 1 or process_eye_right == 1 or process_hair == 1 or process_beard == 1 or process_hair1 == 1 or process_hair2 == 1 or process_baby_hair == 1 or process_light_skin == 1) {
+    while (process_eye_left == 1 or process_eye_right == 1 or process_hair == 1 or process_beard == 1 or process_hair1 == 1 or process_hair2 == 1 or process_baby_hair == 1) {
         Clipboard :=
         Send, ^c
         ClipWait
@@ -716,17 +656,6 @@ while num_generated <= NUM_TO_GENERATE
             set_hair_colors(hair_root, hair_end)
             materials_scroll_top()
         }
-        if (Clipboard == "Light_Skin" and process_light_skin == 1) {
-            process_light_skin := 0
-            Send, y
-
-            open_adjust_color_window()
-            set_param(ADJUST_COLOR_GREEN, hair_green)
-            set_param(ADJUST_COLOR_RED, hair_red)
-            set_param(ADJUST_COLOR_BLUE, hair_blue)
-            Click, %ADJUST_COLOR_CLOSE%
-            WinActivate, ^Character Creator 3
-        }
         if (Clipboard == "Std_Skin_Head" and process_skin_head == 1) {
             process_skin_head := 0
             Send, y
@@ -734,7 +663,7 @@ while num_generated <= NUM_TO_GENERATE
             open_adjust_color_window()
             set_param(ADJUST_COLOR_BRIGHTNESS, skin_brightness)
             Click, %ADJUST_COLOR_CLOSE%
-            WinActivate, ^Character Creator 3
+            WinWaitActive, %MAIN_RE%
         }
         if (Clipboard == "Std_Skin_Body" and process_skin_body == 1) {
             process_skin_body := 0
@@ -743,7 +672,7 @@ while num_generated <= NUM_TO_GENERATE
             open_adjust_color_window()
             set_param(ADJUST_COLOR_BRIGHTNESS, skin_brightness)
             Click, %ADJUST_COLOR_CLOSE%
-            WinActivate, ^Character Creator 3
+            WinWaitActive, %MAIN_RE%
         }
         if (Clipboard == "Std_Skin_Arm" and process_skin_arm == 1) {
             process_skin_arm := 0
@@ -752,7 +681,7 @@ while num_generated <= NUM_TO_GENERATE
             open_adjust_color_window()
             set_param(ADJUST_COLOR_BRIGHTNESS, skin_brightness)
             Click, %ADJUST_COLOR_CLOSE%
-            WinActivate, ^Character Creator 3
+            WinWaitActive, %MAIN_RE%
         }
         if (Clipboard == "Std_Skin_Leg" and process_skin_leg == 1) {
             process_skin_leg := 0
@@ -761,7 +690,7 @@ while num_generated <= NUM_TO_GENERATE
             open_adjust_color_window()
             set_param(ADJUST_COLOR_BRIGHTNESS, skin_brightness)
             Click, %ADJUST_COLOR_CLOSE%
-            WinActivate, ^Character Creator 3
+            WinWaitActive, %MAIN_RE%
         }
         if (Clipboard == "Std_Cornea_L" and process_eye_left == 1) {
             process_eye_left := 0
@@ -772,7 +701,7 @@ while num_generated <= NUM_TO_GENERATE
             set_param(ADJUST_COLOR_RED, eye_red_val)
             set_param(ADJUST_COLOR_BLUE, eye_blue_val)
             Click, %ADJUST_COLOR_CLOSE%
-            WinActivate, ^Character Creator 3
+            WinWaitActive, %MAIN_RE%
         }
         if (Clipboard == "Std_Cornea_R" and process_eye_right == 1) {
             process_eye_right := 0
@@ -783,7 +712,7 @@ while num_generated <= NUM_TO_GENERATE
             set_param(ADJUST_COLOR_RED, eye_red_val)
             set_param(ADJUST_COLOR_BLUE, eye_blue_val)
             Click, %ADJUST_COLOR_CLOSE%
-            WinActivate, ^Character Creator 3
+            WinWaitActive, %MAIN_RE%
         }
 
         Send, {Down}
@@ -791,8 +720,6 @@ while num_generated <= NUM_TO_GENERATE
 
     ; remove selectors for screenshot
     Click, %DESELECT%
-
-    log_fh.write("Screenshots`n")
 
     ; select camera
     Click, %CONTENT_PANE%
@@ -846,9 +773,9 @@ while num_generated <= NUM_TO_GENERATE
         Click, Down
         MouseMove, 702, 672
     } else {
-        MouseMove, 702, 792
+        MouseMove, 702, 762
         Click, Down
-        MouseMove, 702, 307
+        MouseMove, 702, 347
     }
     Click, Up
 
@@ -865,8 +792,6 @@ while num_generated <= NUM_TO_GENERATE
     WinClose, Photos
 
     WinActivate, %MAIN_RE%
-
-    log_fh.write("Exporting " . gender_str . class_str . num_generated . "`n")
 
     ; export
     Send, {LAlt Down}
@@ -939,7 +864,6 @@ while num_generated <= NUM_TO_GENERATE
 }
 
 FormatTime, EndTime, T12, Time
-log_fh.close()
 
 MsgBox %StartTime% %EndTime%
 Exit
