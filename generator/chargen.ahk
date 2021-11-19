@@ -118,6 +118,7 @@ _set_morph(name, value) {
   }
 
   set_param(MORPH_SEARCH, name)
+  Sleep, 50
   set_param(morph_coords, value)
   Sleep, 200 ; let the UI catch up after a morph change
   attrs_fh.write(name . ": " . value . "`n")
@@ -615,6 +616,14 @@ while num_generated <= NUM_TO_GENERATE
             set_morph(extra_head_str, min_morph, max_morph)
             head_types.remove(extra_head_index)
         }
+    }
+
+    ; Ruben eye fix
+    if (primary_head_str == "Ruben") {
+        Click, %MORPH_ACTOR%
+
+        _set_morph("Eyeball Move L", -16)
+        _set_morph("Eyeball Move R", -16)
     }
 
     ; iterate through materials list
