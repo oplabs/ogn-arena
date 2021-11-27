@@ -31,6 +31,7 @@ const partGroups = {
       "Lori",
       "Mei",
       "Travis",
+      "Khulan_Head",
       "CC3+_Neutral Female",
       "CC3+_Katherine_Head",
       "CC3+_Jody_Head",

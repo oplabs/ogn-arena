@@ -24,7 +24,7 @@ const Hero = ({hero}) => {
 
   return <div>
     <div style={{position:'absolute', width:'100%', zIndex:10, visibility:'true'}}>
-       <div className="row">
+       <div className="container" style={{padding:0}}>
           <div className="col-md-8 offset-md-2">
               <div style={{ position:'absolute', zIndex:20, color:'white'}}>
                  <div className="row">
@@ -52,12 +52,12 @@ const Hero = ({hero}) => {
                 </div>
               </div>
              <div>
-            <img src={'/pub/heroes/' + hero.resourceId + '/Hero.jpg'}  style={{display:show3d ? 'none' : 'block'}}/>
+            <img src={'/pub/heroes/' + hero.resourceId + '/Hero.jpg'}  style={{display:show3d ? 'none' : 'block', width:'100%'}}/>
           </div>
        </div>
     </div>
-      <iframe src={remoteUrl} width={'100%'} height={'100%'} allowFullScreen={true} style={{height:642, visibility:show3d ? '':'hidden'}} />
     </div>
+    <iframe src={remoteUrl} width={'100%'} height={'100%'} allowFullScreen={true} style={{height:642, visibility:show3d ? '':'hidden'}} />
   </div>
 }
 

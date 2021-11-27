@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import '../styles.css';
 // own css files here
 //import "../css/customcss.css";
 export default function BaseApp({ Component, pageProps }) {
