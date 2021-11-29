@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     int: DataTypes.INTEGER,
     wis: DataTypes.INTEGER,
     cha: DataTypes.INTEGER,
+    level: DataTypes.INTEGER,
+    experience: DataTypes.INTEGER,
     resourceId:DataTypes.STRING,
     ownedBy: DataTypes.INTEGER,
     walletAddress: DataTypes.STRING,

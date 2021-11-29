@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
+import StatsDisplay from '../../components/StatsDisplay'
 
-
-function AttrDisplay({name, attr}) {
-    return <div className="row"><div className="col-3">{name}:</div><div className="col-9" style={{position:'relative'}}>{attr}
-      <div style={{position:'absolute', zIndex:-1, backgroundColor:'red', width:Math.floor((attr/18.0)*100), height:22, top:0}}></div></div></div>
-
-}
 
 const Hero = ({hero}) => {
   const [show3d, setShow3d] = useState(false)
+  const [showDetails, setShowDetails] = useState(false)
   const [is3dLoaded, setIs3dLoaded] = useState(false)
   //const buildUrl = '/3d/default/Build'
   const remoteUrl = `/pub/heroes/?h=${hero.resourceId}`
+  const heroImageUrl = '/pub/heroes/' + hero.resourceId + '/Hero.jpg'
+  const heroHeadUrl = '/pub/heroes/' + hero.resourceId + '/Face.jpg'
 
   useEffect(()=> {
     if (typeof window !== "undefined") {
@@ -23,7 +21,31 @@ const Hero = ({hero}) => {
   }, [])
 
   return <div>
-    <div style={{position:'absolute', width:'100%', zIndex:10, visibility:'true'}}>
+    {showDetails && <div className="container" style={{padding:0}}>
+      <div className="col-md-10 offset-md-1">
+        <div className="container border rounded-1 m-1">
+          <div className="float-end" role="button" onClick={()=> setShowDetails(false)} >
+            X
+          </div>
+          <div>
+          <img src={heroHeadUrl} onError={(e)=>{e.target.onerror = null; e.target.src=heroImageUrl}} className="float-end" style={{width:200}}/>
+          </div>
+          <div className="row">
+            <h3>{hero.name}</h3> 
+            <h3>{hero.charClass}</h3>
+            <h3>Level: {hero.level}</h3>
+            <div style={{ borderStyle: 'solid', border:1, borderColor:'white', width:300 }}>Experience: {hero.experience}</div>
+
+          </div>
+          <div className="row" style={{width:300}}>
+            <div className="col-sm" >
+              <StatsDisplay character={hero}/>
+            </div>
+          </div>
+    </div>
+    </div>
+    </div>}
+    {!showDetails && <div style={{position:'absolute', width:'100%', zIndex:10, visibility:'true'}}>
        <div className="container" style={{padding:0}}>
           <div className="col-md-8 offset-md-2">
               <div style={{ position:'absolute', zIndex:20, color:'white'}}>
@@ -33,15 +55,16 @@ const Hero = ({hero}) => {
                     <div className="row">
                       <h3>{hero.name}</h3> 
                       <h3>{hero.charClass}</h3>
+                      <h3>Level: {hero.level}</h3>
                     </div>
                     <div className="row" >
                       <div className="col-sm">
-                        <AttrDisplay name='Str' attr={hero.str} />
-                        <AttrDisplay name='Dex' attr={hero.dex} />
-                        <AttrDisplay name='Con' attr={hero.con} />
-                        <AttrDisplay name='Int' attr={hero.int} />
-                        <AttrDisplay name='Wis' attr={hero.wis} />
-                        <AttrDisplay name='Cha' attr={hero.cha} />
+                        <StatsDisplay character={hero}/>
+                      </div>
+                    </div>
+                    <div className="row" >
+                      <div className="col-sm">
+                        <button type='button' className='btn btn-secondary' onClick={()=> setShowDetails(true)}>Character Loadout</button>
                       </div>
                     </div>
                    </div>
@@ -52,12 +75,12 @@ const Hero = ({hero}) => {
                 </div>
               </div>
              <div>
-            <img src={'/pub/heroes/' + hero.resourceId + '/Hero.jpg'}  style={{display:show3d ? 'none' : 'block', width:'100%'}}/>
+            <img src={heroImageUrl}  style={{display:show3d ? 'none' : 'block', width:'100%'}}/>
           </div>
        </div>
     </div>
-    </div>
-    <iframe src={remoteUrl} width={'100%'} height={'100%'} allowFullScreen={true} style={{height:642, visibility:show3d ? '':'hidden'}} />
+    </div>}
+    <iframe src={remoteUrl} width={'100%'} height={'100%'} allowFullScreen={true} style={{height:642, visibility:(show3d && !showDetails) ? '':'hidden'}} />
   </div>
 }
 

@@ -1,11 +1,5 @@
 import Link from 'next/link'
-
-function AttrDisplay({name, attr}) {
-    return <div className="row"><div className="col-3">{name}:</div><div className="col-9" style={{position:'relative'}}>{attr}
-      <div style={{position:'absolute', zIndex:-1, backgroundColor:'red', width:Math.floor((attr/18.0)*100), height:22, top:0}}></div></div></div>
-
-}
-
+import StatsDisplay from '../components/StatsDisplay'
 
 function Gallery({characters}) {
   return <>
@@ -22,12 +16,7 @@ function Gallery({characters}) {
             </div>
             <div className="row" >
               <div className="col">
-                <AttrDisplay name='Str' attr={c.str} />
-                <AttrDisplay name='Dex' attr={c.dex} />
-                <AttrDisplay name='Con' attr={c.con} />
-                <AttrDisplay name='Int' attr={c.int} />
-                <AttrDisplay name='Wis' attr={c.wis} />
-                <AttrDisplay name='Cha' attr={c.cha} />
+                <StatsDisplay character={c} />
               </div>
               <div className="col">
                 <img style={{width:100 }} src={'/pub/heroes/' + c.resourceId + '/Hero.jpg'} />

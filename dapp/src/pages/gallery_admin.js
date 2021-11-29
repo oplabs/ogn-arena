@@ -1,5 +1,6 @@
 import ReactStars from "react-rating-stars-component";
 import { useEffect, useState } from 'react'
+import StatsDisplay from '../components/StatsDisplay'
 const { partGroups } = require('common/src/cc/parts_mapping');
 
 function AttrDisplay({name, attr}) {
@@ -122,12 +123,7 @@ function Gallery({characters}) {
             </div>
             <div className="row" >
               <div className="col">
-                <AttrDisplay name='Str' attr={c.str} />
-                <AttrDisplay name='Dex' attr={c.dex} />
-                <AttrDisplay name='Con' attr={c.con} />
-                <AttrDisplay name='Int' attr={c.int} />
-                <AttrDisplay name='Wis' attr={c.wis} />
-                <AttrDisplay name='Cha' attr={c.cha} />
+                <StatsDisplay character={c} />
                 <ReactStars count={5} onChange={(newRating) => ratingChanged(c.id, newRating)} size={24} value={c.rating} />
                 <CCAttrs character={c} />
               </div>
