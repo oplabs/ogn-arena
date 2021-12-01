@@ -1,10 +1,7 @@
 // add bootstrap css 
 import Head from "next/head";
-import 'bootstrap/dist/css/bootstrap.css'
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+//import 'bootstrap/dist/css/bootstrap.css'
+import '../custom.scss';
 import '../styles.css';
 // own css files here
 //import "../css/customcss.css";

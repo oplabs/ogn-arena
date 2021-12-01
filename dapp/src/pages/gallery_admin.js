@@ -1,5 +1,6 @@
 import ReactStars from "react-rating-stars-component";
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import StatsDisplay from '../components/StatsDisplay'
 const { partGroups } = require('common/src/cc/parts_mapping');
 
@@ -128,9 +129,9 @@ function Gallery({characters}) {
                 <CCAttrs character={c} />
               </div>
               <div className="col">
-                <a href={`/pub/heroes/${c.resourceId}`} style={{color:'black', textDecoration:'none'}} target="_">
+                <Link href={`/hero/${c.id}`}>
                 <img style={{width:600 }} src={'/pub/heroes/' + c.resourceId + '/Hero.jpg'} />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
