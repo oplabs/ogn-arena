@@ -41,7 +41,9 @@ const Hero = ({hero}) => {
           </Tooltip>
         }
         >
-        <img src={skillImg} style={{height:'100%'}}/>
+        <div style={{height:'100%'}}>
+        <img src={skillImg} style={{height:'100%', position:'relative', zIndex:-10}}/>
+        </div>
       </OverlayTrigger>
     } else {
       return <></>
@@ -261,6 +263,9 @@ const Hero = ({hero}) => {
         .eqTooltip.bs-tooltip-auto[data-popper-placement^=top] > .tooltip-arrow:before {
           border-top-color: grey !important;
         }
+        .tooltip.show {
+          opacity:1.0;
+         }
       `}</style>
   </div>
 }
