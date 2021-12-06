@@ -12,6 +12,8 @@
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "fantasy-content-generator": "^4.8.2",
+    "image-size": "^1.0.0",
+    "lodash": "^4.17.21",
     "pg": "^8.7.1",
     "pino": "^7.0.3",
     "sequelize": "^6.7.0",
