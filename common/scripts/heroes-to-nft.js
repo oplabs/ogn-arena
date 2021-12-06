@@ -34,6 +34,7 @@ const nftCreator = async () => {
     const listingType = 'Auction'
     const supportedCurrencies = ['ETH']
     const attributes = _.pick(hero, ['str', 'dex', 'con', 'int', 'wis', 'cha'])
+    attributes.DNA = '<Place holder>'
     attributes.HID = hero.id
     const data = { attributes }
     nfts.push({ data, listingType, supportedCurrencies, mediaWidth, mediaHeight, media, posterMedia, name, description, timeZone,skipPostProcessing: true })
