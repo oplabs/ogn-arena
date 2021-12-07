@@ -33,9 +33,21 @@ const nftCreator = async () => {
     const timeZone= 'America/Los_Angeles'
     const listingType = 'Auction'
     const supportedCurrencies = ['ETH']
-    const attributes = _.pick(hero, ['str', 'dex', 'con', 'int', 'wis', 'cha'])
-    attributes.DNA = '<Place holder>'
-    attributes.HID = hero.id
+    const attrs = _.pick(hero, ['str', 'dex', 'con', 'int', 'wis', 'cha'])
+    attributes = []
+
+    attributes.push({trait_type:'Strength', value:hero.str})
+    attributes.push({trait_type:'Dexterity', value:hero.dex})
+    attributes.push({trait_type:'Constitution', value:hero.con})
+    attributes.push({trait_type:'Intelligence', value:hero.int})
+    attributes.push({trait_type:'Wisdom', value:hero.wis})
+    attributes.push({trait_type:'Charisma', value:hero.cha})
+
+    const DNA = '<Place Holder'
+
+    attributes.push({trait_type:'DNA', value:DNA})
+    attributes.push({trait_type:'HID', value:hero.id})
+
     const data = { attributes }
     nfts.push({ data, listingType, supportedCurrencies, mediaWidth, mediaHeight, media, posterMedia, name, description, timeZone,skipPostProcessing: true })
   }
