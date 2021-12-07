@@ -9,6 +9,7 @@ SetTitleMatchMode, RegEx
 
 NUM_TO_GENERATE := 200
 SAVE_CCPROJECT := 0
+SAVE_FBX := 1
 
 PROJECT_DIR := "C:\Users\codex\Downloads\"
 BATCH_DIR := "C:\Users\codex\Documents\chargen\generated_" . A_YYYY . A_MM . A_DD . A_Hour . A_Min . A_Sec . "\"
@@ -35,9 +36,10 @@ GENDER_FEMALE := "Female"
 HAIR_BALD := "Bald"
 SKINS := {0 : "Default", 1 : "Clean", 2 : "Khulan"}
 MALE_HEADS := ["CC3+_Neutral Male", "CC3+_Caleb_Head", "CC3+_Kevin_Head", "Caleus", "Dimitri"
-             , "Matt", "Ruben" , "Timothy", "Gabriel", "Jamal", "Travis", "Khulan_Head"]
+             , "Matt", "Ruben" , "Timothy", "Gabriel", "Jamal", "Travis", "Khulan_Head", "Trey"]
 FEMALE_HEADS := ["CC3+_Neutral Female", "CC3+_Katherine_Head", "CC3+_Jody_Head", "Denisa", "Flora"
-               , "Magda", "Michelle", "Samantha", "Aanya", "Ayako", "Cristy", "Gloria", "Lori", "Mei"]
+               , "Magda", "Michelle", "Samantha", "Aanya", "Ayako", "Cristy", "Gloria", "Lori", "Mei"
+               , "Anna"]
 HEAD_HERCULEAN := "Head HA Male Herculean"
 
 FEMALE_BODIES := ["CC3+_Neutral Female", "CC3+_Katherine_Body", "CC3+_Jody_Body", "Body HA Female Athletic"]
@@ -76,6 +78,8 @@ MORPH_SEARCH := "1800, 260"
 MORPH_VAL1 := "1879, 336"
 MORPH_VAL2 := "1879, 427"
 
+ATTRIBUTE_PANE := "1405, 196"
+
 ADJUST_COLOR_SOFTNESS := "279, 279"
 ADJUST_COLOR_BRIGHTNESS := "260, 348"
 ADJUST_COLOR_CONTRAST := "260, 401"
@@ -103,6 +107,11 @@ SMART_GALLERY_SEARCH := "318, 208"
 
 RENDER_EXPORT := "275, 1019"
 
+SCENE_PANE := "563, 464"
+SCENE_AVATAR_ITEM1 := "145, 281"
+SCENE_TRANSFORM_SCALE_X := "1482, 1021"
+SCENE_TRANSFORM_SCALE_Y := "1661, 1021"
+
 
 rand_bm() {
     u := 0
@@ -128,7 +137,7 @@ rand_morph_val(min, max) {
 }
 
 wait_loading() {
-    WinWaitActive, ^Character Creator 3$
+    WinWaitActive, ^Character Creator 3$,,5
     WinWaitClose, ^Character Creator 3$
 }
 
@@ -235,7 +244,7 @@ set_html_hair_color(color) {
 }
 
 open_adjust_color_window() {
-    Click, Right, 1529, 347 
+    Click, Right, 1529, 347
     sleep, 500 ; long sleep required after that right click
     Click, 1582, 493
     WinWaitActive, Adjust Color
@@ -269,11 +278,7 @@ similar_hair_idx(hair_idx) {
         return max_idx - 1
     } else {
         Random, lighter_chance, 0, 1
-        if (lighter_chance == 1) {
-            return hair_idx + 1
-        } else {
-            return hair_idx - 1
-        }
+        return lighter_chance ? hair_idx + 1 : hair_idx - 1
     }
 }
 
@@ -301,11 +306,17 @@ set_beard(beard_str) {
     WinActivate, %MAIN_RE%
     WinWaitActive, %MAIN_RE%
     Click, %CONTENT_PANE%
+    Sleep, 50
     Click, %CONTENT_HAIR%
+    Sleep, 50
     Click, %CONTENT_HAIR_TEMPLATE%
+    Sleep, 50
     Click, %CONTENT_ITEM2% 2 ; Group
+    Sleep, 50
     Click, %CONTENT_ITEM1% 2 ; Beard
+    Sleep, 50
     Click, %CONTENT_SEARCH%
+    Sleep, 50
     clip_send(beard_str)
     Sleep, 200
     Click, %CONTENT_ITEM1% 2 ; first result
@@ -322,7 +333,9 @@ WinActivate, %MAIN_RE%
 WinWaitActive, %MAIN_RE%
 
 Send, ^2 ; set default workspace for reliable clicks
+Sleep, 50
 Send, ^1 ; ctrl+1 one time should enable list view on menus
+Sleep, 50
 
 ; copy current version of script to output dir for posterity
 FileCreateDir, %BATCH_DIR%
@@ -339,6 +352,10 @@ last_class_str :=
 num_generated := 1
 while num_generated <= NUM_TO_GENERATE
 {
+    if (num_generated > 1) {
+        sleep 2000 ; give UI some time to cool down between runs
+    }
+
     ; Class
     Random class_bool, 0, 1
     if class_bool {
@@ -461,7 +478,7 @@ while num_generated <= NUM_TO_GENERATE
     }
 
     ; Ethnicity hack, set skin brightness based on a few heads:
-    if in_array(["Michelle", "Ruben", "Aanya", "Jamal"], primary_head) {
+    if in_array(["Michelle", "Ruben", "Aanya", "Jamal", "Trey"], primary_head) {
         Random, skin_brightness, -55, 5
     } else {
         Random, skin_brightness, -5, 5
@@ -512,7 +529,7 @@ while num_generated <= NUM_TO_GENERATE
     }
     hair_end := HAIR_COLORS[hair_end_idx]
 
-    if (hair_root_idx > SAFE_HAIR_MAX_IDX) {
+    if (hair_root_idx > SAFE_HAIR_MAX_IDX or hair_end_idx > SAFE_HAIR_MAX_IDX) {
         Random, beard_root_idx, 1, SAFE_HAIR_MAX_IDX
         beard_root := HAIR_COLORS[beard_root_idx]
         beard_end_idx := similar_hair_idx(beard_root_idx)
@@ -548,7 +565,7 @@ while num_generated <= NUM_TO_GENERATE
 
     ; confirmation skippable on first run
     if (num_generated > 1) {
-        WinWaitActive, ^Character Creator 3$
+        WinWaitActive, ^Character Creator 3$,,5
         Send {LAlt Down}
         Send n
         Send {LAlt Up}
@@ -706,7 +723,7 @@ while num_generated <= NUM_TO_GENERATE
 
     if (gender_str == "Male") {
         ; adjust camera to include more hair
-        Click, 869, 77 
+        Click, 869, 77
         MouseMove, 702, 257
         Click, Down
         MouseMove, 702, 342
@@ -736,7 +753,7 @@ while num_generated <= NUM_TO_GENERATE
     wait_loading()
 
     ; adjust camera
-    Click, 869, 77 
+    Click, 869, 77
     if (gender_str == "Male") {
         MouseMove, 702, 257
         Click, Down
@@ -762,51 +779,76 @@ while num_generated <= NUM_TO_GENERATE
 
     WinActivate, %MAIN_RE%
 
-    ; export
-    Send, {LAlt Down}
-    Send, f
-    Send, {LAlt Up}
-    Send, {Down 6}
-    Send, {Right}
-    Send, {Down 4}
-    Send, {Enter}
+    ; POST-SCREENSHOT / PRE-EXPORT MODIFICATIONS:
 
-  ; WinWaitActive, ^Character Creator 3$
-  ; Send {Enter}
-  ; sleep, 100
+    ; We want to adjust hair scale slightly for some models, but we don't want
+    ; those changes showing up in the screenshots.
+    if in_array(["Long wavy ponytail", "Large bun"], hair_str) {
+        Click, %SCENE_PANE%
+        Click, %SCENE_AVATAR_ITEM1%
+        Click, %ATTRIBUTE_PANE%
 
-    WinActivate, Export FBX
-    WinWaitActive, Export FBX
+        Clipboard :=
+        Send, ^c
+        ClipWait
 
-    ; set motions if we rolled a different class last time
-    if (last_class_str != class_str) {
-        Click, 705, 702 ; scroll
-        Click, 34, 398 ; Custom radio selector
-        Click, 324, 536 ; clear all
-        for index, motion in motions {
-            Click 250, 539 ; open file
-            WinWaitActive, Open
-            clip_send(MOTIONS_DIR . motion)
-            WinActivate, Export FBX
-            WinWaitActive, Export FBX
-            sleep, 200
+        while (Clipboard != "Messy high") {
+            Send, {Down}
+            Clipboard :=
+            Send, ^c
+            ClipWait
         }
+
+        Click, %SCENE_TRANSFORM_SCALE_X%
+        Send, ^a
+        Send, 98
+        Send, {Tab}
+        Send, 98
     }
 
-    Click, 215, 773
+    ; export
+    if SAVE_FBX {
+        Send, {LAlt Down}
+        Send, f
+        Send, {LAlt Up}
+        Send, {Down 6}
+        Send, {Right}
+        Send, {Down 4}
+        Send, {Enter}
 
-    WinWaitActive, Character Creator 3
-    WinActivate, Character Creator 3
-    Click, 109, 254 
+        WinActivate, Export FBX
+        WinWaitActive, Export FBX
 
-    WinWaitActive, Save As
-    WinActivate, Save As
-    Click 328, 435
-    clip_send(hero_dir . "Hero.fbx")
+        ; set motions if we rolled a different class last time
+        if (last_class_str != class_str) {
+            Click, 705, 702 ; scroll
+            Click, 34, 398 ; Custom radio selector
+            Click, 324, 536 ; clear all
+            for index, motion in motions {
+                Click 250, 539 ; open file
+                WinWaitActive, Open
+                clip_send(MOTIONS_DIR . motion)
+                WinActivate, Export FBX
+                WinWaitActive, Export FBX
+                sleep, 200
+            }
+        }
 
-    wait_loading()
-    sleep 3000 ; seems to help mitigate a slippery second window
-    wait_loading() ; final window
+        Click, 215, 773
+
+        WinWaitActive, Character Creator 3
+        WinActivate, Character Creator 3
+        Click, 109, 254
+
+        WinWaitActive, Save As
+        WinActivate, Save As
+        Click 328, 435
+        clip_send(hero_dir . "Hero.fbx")
+
+        wait_loading()
+        sleep 3000 ; seems to help mitigate a slippery second window
+        wait_loading() ; final window
+    }
 
     if SAVE_CCPROJECT {
         Send {LAlt Down}
@@ -822,14 +864,11 @@ while num_generated <= NUM_TO_GENERATE
         sleep, 20
         clip_send(hero_dir . "Hero.ccProject")
         sleep, 10
-        WinWaitActive, ^Character Creator 3$
-        WinWaitNotActive, ^Character Creator 3$
+        wait_loading()
     }
 
     last_class_str := class_str
     num_generated += 1
-
-    sleep 2000 ; give UI some time to cool down between runs
 }
 
 FormatTime, EndTime, T12, Time
@@ -837,3 +876,5 @@ FormatTime, EndTime, T12, Time
 MsgBox %StartTime% %EndTime%
 BlockInput, MouseMoveOff
 ExitApp
+
+Esc::ExitApp
