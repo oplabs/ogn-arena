@@ -1,17 +1,11 @@
-import Unity, { UnityContext } from "react-unity-webgl";
 import { useEffect, useState } from 'react'
+import Unity, { UnityContext } from "react-unity-webgl";
 
 
-function AttrDisplay({name, attr}) {
-    return <div className="row"><div className="col-3">{name}:</div><div className="col-9" style={{position:'relative'}}>{attr}
-      <div style={{position:'absolute', zIndex:-1, backgroundColor:'red', width:Math.floor((attr/18.0)*100), height:22, top:0}}></div></div></div>
-
-}
-
-const Hero = ({hero}) => {
-  //const buildUrl = '/3d/default/Build'
-  const buildUrl = `/pub/${hero.resourceId}`
+const Embed = ({hero}) => {
+  const buildUrl = `/pub/heroes/${hero.resourceId}/Build`
   const [unityContext, setUnityContext] = useState()
+  const [progress, setProgress] = useState(0);
 
   useEffect(()=> {
     if (typeof window !== "undefined")
@@ -26,28 +20,31 @@ const Hero = ({hero}) => {
         productVersion: "0.1",
       });
       setUnityContext(context);
+
+      context.on("progress", function (progression) {
+        setProgress(progression)
+        console.log("setting progress at:", progression);
+      });
       console.log("setting context");
+      return function () {
+        context.removeEventListener("progress");
+      };
     }
   }, []);
 
   return <div>
-      <div className="container border rounded-1 m-1" style={{minWidth:300, position:'absolute', zIndex:10}}>
+    <div style={{position:'relative', maxWidth:960, width:'100%', maxHeight:600, height:'100vh'}} className="mx-auto">
+      <div className="container border rounded-1 m-1" style={{width:'fit-content', minWidth:300, position:'absolute', zIndex:10}}>
         <div className="row">
           <h3>{hero.name}</h3>
           <h3>{hero.charClass}</h3>
         </div>
-        <div className="row" >
-          <div className="col-sm">
-            <AttrDisplay name='Str' attr={hero.str} />
-            <AttrDisplay name='Dex' attr={hero.dex} />
-            <AttrDisplay name='Con' attr={hero.con} />
-            <AttrDisplay name='Int' attr={hero.int} />
-            <AttrDisplay name='Wis' attr={hero.wis} />
-            <AttrDisplay name='Cha' attr={hero.cha} />
-          </div>
-        </div>
       </div>
-    {unityContext && <Unity unityContext={unityContext} />}
+      {(progress < 1) && <div style={{position:'absolute', top:'50%', left:'35%', width:'200px'}}>loading...
+        <div style={{position:'absolute', zIndex:-1, backgroundColor:'blue', width:Math.floor(progress*200), height:22, top:0}}></div>
+      </div> }
+      {unityContext && <Unity unityContext={unityContext} style={{ width:'100%', height: '100%' }} />}
+    </div>
   </div>
 }
 
@@ -65,4 +62,4 @@ export async function getServerSideProps(context) {
 }
 
 
-export default Hero
+export default Embed
