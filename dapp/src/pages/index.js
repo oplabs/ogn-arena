@@ -1,7 +1,11 @@
 function HomePage() {
   return <div>
-        <div className="text-center">
-          <img style={{height:100}} src="/images/blades_logo.png" alt="Blades of Valor"/>
+        <div className="row">
+          <div className="col"></div>
+          <div className="col-6" style={{minWidth:350}}>
+            <img style={{width:'100%'}} src="/images/blades_logo.png" alt="Blades of Valor"/>
+          </div>
+          <div className="col"></div>
         </div>
         <div className="row">
           <div className="col">
@@ -18,7 +22,7 @@ function HomePage() {
         <div>
           <h4>You are one of the few honored nobles of Valoria. Your house might even have a Grand Champion in its line. You have the resources to sponsor these heroes and heroines on their quest by giving them housing, training, equipment, and the entry fee into the tournament itself. And in turn their winnings will bring prestige and honor to your house, not to mention a few prizes granted to the sponsor.</h4>
           <div className="text-center">
-          <img style={{height:300}} src="/images/ArenaTraining-Small.png" alt="Arena Training"/>
+          <img style={{width:'100%'}} src="/images/ArenaTraining-Small.png" alt="Arena Training"/>
           </div>
         </div>
     </div>

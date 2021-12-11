@@ -26,7 +26,10 @@ function Gallery({characters, totalPages, currentPage}) {
   return <>
     <div className="container-fluid">
     <div className="row m-2">
-      <div className="col-6">
+      <Link href="/">
+        <img style={{width:100 }} src={'/favicons/270x270.png'} className="float-start" />
+      </Link>
+      <div className="col-6 mt-3 p-0" >
       <Form onSubmit={handleSearch}>
         <Form.Control type="text" name="search" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." />
       </Form>
@@ -55,9 +58,13 @@ function Gallery({characters, totalPages, currentPage}) {
         </div>
       )}
     </div>
-    <div className="mx-auto">
-      <OAPagination currentPage={currentPage} totalPages={totalPages} 
-        loadPage={ (p) => { query.p = p; router.push({query})}}  />
+    <div className="row">
+      <div className="col"></div>
+      <div className="col-6">
+        <OAPagination currentPage={currentPage} totalPages={totalPages} 
+          loadPage={ (p) => { query.p = p; router.push({query})}}  />
+      </div>
+      <div className="col"></div>
     </div>
     </div>
     </>
