@@ -33,7 +33,7 @@ const Embed = ({hero}) => {
   }, []);
 
   return <div>
-    <div style={{position:'relative', maxWidth:960, width:'100%', maxHeight:600, height:'100vh'}} className="mx-auto">
+    <div style={{position:'relative', maxWidth:960, width:'100%', maxHeight:800, height:'100vh'}} className="mx-auto">
       <div className="container border rounded-1 m-1" style={{width:'fit-content', minWidth:300, position:'absolute', zIndex:10}}>
         <div className="row">
           <h3>{hero.name}</h3>
@@ -43,6 +43,7 @@ const Embed = ({hero}) => {
       {(progress < 1) && <div style={{position:'absolute', top:'50%', left:'35%', width:'200px'}}>loading...
         <div style={{position:'absolute', zIndex:-1, backgroundColor:'blue', width:Math.floor(progress*200), height:22, top:0}}></div>
       </div> }
+      <div onClick={() => { unityContext.setFullscreen(true); } } style={{position:'absolute', bottom:0, right:0, margin:5, cursor:'pointer', fontSize:16}}>Full Screen <i className="bi bi-fullscreen" style={{fontSize:18, color:'white'}}></i></div>
       {unityContext && <Unity unityContext={unityContext} style={{ width:'100%', height: '100%' }} />}
     </div>
   </div>

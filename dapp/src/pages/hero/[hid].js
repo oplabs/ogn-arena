@@ -4,14 +4,17 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 const { defaultEq, eqInfo } = require('common/src/eq/equipment');
 const { defaultSkill, skillInfo } = require('common/src/skill/skill');
+import Unity, { UnityContext } from "react-unity-webgl";
 
 const Hero = ({hero}) => {
   const router = useRouter()
   const [show3d, setShow3d] = useState(false)
   const [showDetails, setShowDetails] = useState(router.query.details == '1')
   const [is3dLoaded, setIs3dLoaded] = useState(false)
+  const [unityContext, setUnityContext] = useState()
+  const [progress, setProgress] = useState(0);
   //const buildUrl = '/3d/default/Build'
-  const remoteUrl = `/pub/heroes/?h=${hero.resourceId}`
+  const buildUrl = `/pub/heroes/${hero.resourceId}/Build`
   const heroImageUrl = '/pub/heroes/' + hero.resourceId + '/Hero.jpg'
   const heroHeadUrl = '/pub/heroes/' + hero.resourceId + '/Face.jpg'
   const charClass = hero.charClass.charAt(0).toUpperCase() + hero.charClass.slice(1)
@@ -83,13 +86,32 @@ const Hero = ({hero}) => {
   }
 
   useEffect(()=> {
-    if (typeof window !== "undefined") {
-      window.unityLoadComplete = () => {
-        setIs3dLoaded(true);
-        setShow3d(true);
-      }
+    if (typeof window !== "undefined")
+    {
+      const context = new UnityContext({
+        loaderUrl: buildUrl + `/${hero.resourceId}.loader.js`,
+        dataUrl: buildUrl + `/${hero.resourceId}.data.gz`,
+        frameworkUrl: buildUrl + `/${hero.resourceId}.framework.js.gz`,
+        codeUrl: buildUrl + `/${hero.resourceId}.wasm.gz`,
+        companyName: "Origin Protocol Inc.",
+        productName: "OgnArena",
+        productVersion: "0.1",
+      });
+      setUnityContext(context);
+
+      context.on("progress", function (progression) {
+        setProgress(progression)
+        if (progression == 1) {
+          setIs3dLoaded(true);
+          setShow3d(true);
+        }
+      });
+      console.log("setting context");
+      return function () {
+        context.removeEventListener("progress");
+      };
     }
-  }, [])
+  }, []);
 
   return <div>
     {showDetails && <div className="container" style={{padding:0}}>
@@ -214,7 +236,13 @@ const Hero = ({hero}) => {
        </div>
     </div>
     </div>}
-    <iframe src={remoteUrl} width={'100%'} height={'100%'} allowFullScreen={true} style={{height:642, visibility:(show3d && !showDetails) ? '':'hidden'}} />
+    <div style={{position:'relative', maxWidth:960, width:'100%', maxHeight:800, height:'100vh', visibility:(show3d && !showDetails) ? '':'hidden'}} className="mx-auto">
+      {(progress < 1) && <div style={{position:'absolute', top:'50%', left:'35%', width:'200px'}}>loading...
+        <div style={{position:'absolute', zIndex:-1, backgroundColor:'blue', width:Math.floor(progress*200), height:22, top:0}}></div>
+      </div>}
+      <div onClick={() => { unityContext.setFullscreen(true); } } style={{position:'absolute', bottom:0, right:0, margin:5, cursor:'pointer', fontSize:16}}>Full Screen <i className="bi bi-fullscreen" style={{fontSize:18, color:'white'}}></i></div>
+      {unityContext && <Unity unityContext={unityContext} style={{ width:'100%', height: '100%' }} />}
+    </div>
       <style jsx>{`
         .skill-box {
           box-shadow:inset 4px 2px 8px 2px rgba(0, 0, 0);
