@@ -21,9 +21,9 @@ const Hero = ({hero}) => {
 
   const doShowDetails = (show) => {
     if (show ) {
-     router.push(`/hero/${hero.id}?details=1`, undefined, { shallow: true })
+     router.replace(`/hero/${hero.id}?details=1`, undefined, { shallow: true })
     } else {
-     router.push(`/hero/${hero.id}`, undefined, { shallow: true })
+     router.replace(`/hero/${hero.id}`, undefined, { shallow: true })
     }
     setShowDetails(show)
   }
@@ -125,6 +125,7 @@ const Hero = ({hero}) => {
               <button type='button' className='btn btn-secondary' onClick={()=> doShowDetails(false)}>Character View</button>
             </div>
           </div>
+          
           <div className="row">
             <h3>{hero.name}</h3> 
             <h3>{charClass} Level: {hero.level}</h3>
@@ -208,6 +209,7 @@ const Hero = ({hero}) => {
     </div>
     </div>}
     {!showDetails && <div style={{position:'absolute', width:'100%', zIndex:10, visibility:'true'}}>
+       
        <div className="container" style={{padding:0}}>
           <div className="col-md-8 offset-md-2">
               <div style={{ position:'absolute', zIndex:20, color:'white'}}>
@@ -231,12 +233,20 @@ const Hero = ({hero}) => {
                 </div>
               </div>
              <div>
-            <img src={heroImageUrl}  style={{display:show3d ? 'none' : 'block', width:'100%'}}/>
+          <div style={{display:show3d ? 'none' : 'block', position:'relative'}}>
+            <div onClick={() => router.back()} style={{width:100, position:'absolute', right:0, cursor:'pointer'}} >
+              <img style={{width:'100%'}} src={'/favicons/270x270.png'} />
+            </div>
+            <img src={heroImageUrl}  style={{width:'100%'}}/>
+          </div>
           </div>
        </div>
     </div>
     </div>}
     <div style={{position:'relative', maxWidth:960, width:'100%', maxHeight:800, height:'100vh', visibility:(show3d && !showDetails) ? '':'hidden'}} className="mx-auto">
+      <div onClick={() => router.back()} style={{width:100, position:'absolute', right:0, cursor:'pointer'}} >
+          <img style={{width:'100%'}} src={'/favicons/270x270.png'} />
+      </div>
       {(progress < 1) && <div style={{position:'absolute', top:'50%', left:'35%', width:'200px'}}>loading...
         <div style={{position:'absolute', zIndex:-1, backgroundColor:'blue', width:Math.floor(progress*200), height:22, top:0}}></div>
       </div>}
