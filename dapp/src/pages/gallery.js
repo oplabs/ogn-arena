@@ -43,7 +43,7 @@ function Gallery({characters, totalPages, currentPage}) {
           <div className="container border rounded-1 m-1" style={{minWidth:300, maxWidth:350}}>
             <div className="row">
               <h3>{c.name}</h3>
-              <h3>{c.charClass}</h3>
+              <h3>{c.charClass.charAt(0).toUpperCase() + c.charClass.slice(1)} <span style={{paddingLeft:10}}>Level: {c.level}</span></h3>
             </div>
             <div className="row" >
               <div className="col">
@@ -77,7 +77,7 @@ export async function getServerSideProps({ query }) {
   const { p, s} = query
   // Fetch data from external API
   //
-  const findClause = { limit:PAGE_SIZE, order:[['id', 'DESC']] }
+  const findClause = { limit:PAGE_SIZE, order:[['sort_order', 'DESC']] }
   const currentPage = (p > 1) ? Number(p) : 1
 
   findClause.offset = (currentPage - 1) * PAGE_SIZE
