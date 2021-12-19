@@ -6,11 +6,12 @@ const sort = async () => {
 
   let total = 0
   for(const hero of await Hero.findAll({order:[['id', 'DESC']]})) {
-    const {charClass} = hero
-    if (charClass in classLists) {
-      classLists[charClass].push(hero)
+    const {charClass, gender } = hero
+    const key = `${charClass}-${gender}`
+    if (key in classLists) {
+      classLists[key].push(hero)
     } else {
-      classLists[charClass] = [hero]
+      classLists[key] = [hero]
     }
     total += 1
   }
@@ -18,10 +19,10 @@ const sort = async () => {
   // calculate probabilities
   let totalProbs = 0
   const classProbs = []
-  for (const [charClass, hs]  of Object.entries(classLists)) {
+  for (const [key, hs]  of Object.entries(classLists)) {
     //assumes order is stable
     totalProbs += hs.length / total
-    classProbs.push([charClass, totalProbs])
+    classProbs.push([key, totalProbs])
   }
   console.log("Total probs is:", classProbs)
 
@@ -30,10 +31,10 @@ const sort = async () => {
      let heroSet = false
      while(!heroSet){
        const p = Math.random()
-       for ( const [charClass, prob] of classProbs) {
+       for ( const [key, prob] of classProbs) {
         if (prob > p) {
-          if (classLists[charClass].length > 0){
-            const hero = classLists[charClass].shift()
+          if (classLists[key].length > 0){
+            const hero = classLists[key].shift()
             hero.sortOrder = o
             await hero.save()
             heroSet = true
