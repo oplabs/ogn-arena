@@ -16,6 +16,7 @@ BATCH_DIR := "C:\Users\codex\Documents\chargen\generated_" . A_YYYY . A_MM . A_D
 MOTIONS_DIR := "C:\Users\Public\Documents\Reallusion\Template\Character Creator 3 Template\Motion\"
 
 MAIN_RE := "^Character Creator 3.*\.ccProject"
+EXPORT_FBX_RE := "^Export FBX$"
 
 HAIR_COLORS := [0x1c1f20, 0x272a2d, 0x312e2d, 0x35261b, 0x4b321e, 0x5c3b23, 0x6d4c33
     , 0x6b503c, 0x765c47, 0x7f6850, 0x99815d, 0xa79369, 0xaf9c70, 0xbba063, 0xd6b97b
@@ -31,15 +32,19 @@ SAFE_HAIR_MAX_IDX := 19
 ; constants
 CLASS_MAGE := "Mage"
 CLASS_FIGHTER := "Fighter"
+CLASS_CLERIC := "Cleric"
+CLASS_ROGUE := "Rogue"
+
 GENDER_MALE := "Male"
 GENDER_FEMALE := "Female"
 HAIR_BALD := "Bald"
 SKINS := {0 : "Default", 1 : "Clean", 2 : "Khulan"}
 MALE_HEADS := ["CC3+_Neutral Male", "CC3+_Caleb_Head", "CC3+_Kevin_Head", "Caleus", "Dimitri"
-             , "Matt", "Ruben" , "Timothy", "Gabriel", "Jamal", "Travis", "Khulan_Head", "Trey"]
+             , "Matt", "Ruben" , "Timothy", "Gabriel", "Jamal", "Travis", "Khulan_Head", "Trey"
+             , "Alejandro_Head"]
 FEMALE_HEADS := ["CC3+_Neutral Female", "CC3+_Katherine_Head", "CC3+_Jody_Head", "Denisa", "Flora"
                , "Magda", "Michelle", "Samantha", "Aanya", "Ayako", "Cristy", "Gloria", "Lori", "Mei"
-               , "Anna"]
+               , "Anna", "Natasha_Head"]
 HEAD_HERCULEAN := "Head HA Male Herculean"
 
 FEMALE_BODIES := ["CC3+_Neutral Female", "CC3+_Katherine_Body", "CC3+_Jody_Body", "Body HA Female Athletic"]
@@ -287,7 +292,9 @@ set_hair(hair_str) {
     WinActivate, %MAIN_RE%
     WinWaitActive, %MAIN_RE%
     Click, %SMART_GALLERY_TAB%
+    Sleep, 50
     Click, %SMART_GALLERY_SEARCH%
+    Sleep, 50
     Send, ^a
     clip_send(hair_str)
     Sleep, 200
@@ -306,17 +313,17 @@ set_beard(beard_str) {
     WinActivate, %MAIN_RE%
     WinWaitActive, %MAIN_RE%
     Click, %CONTENT_PANE%
-    Sleep, 50
+    Sleep, 100
     Click, %CONTENT_HAIR%
-    Sleep, 50
+    Sleep, 100
     Click, %CONTENT_HAIR_TEMPLATE%
-    Sleep, 50
+    Sleep, 100
     Click, %CONTENT_ITEM2% 2 ; Group
-    Sleep, 50
+    Sleep, 100
     Click, %CONTENT_ITEM1% 2 ; Beard
-    Sleep, 50
+    Sleep, 100
     Click, %CONTENT_SEARCH%
-    Sleep, 50
+    Sleep, 100
     clip_send(beard_str)
     Sleep, 200
     Click, %CONTENT_ITEM1% 2 ; first result
@@ -357,13 +364,28 @@ while num_generated <= NUM_TO_GENERATE
     }
 
     ; Class
-    Random class_bool, 0, 1
-    if class_bool {
+    Random class_bool, 2, 3 ; xxx : only generating cleric and rogues
+    if (class_bool == 0) {
         class_str := CLASS_FIGHTER
-        motions := ["Studio Mocap-Sword & Shield Moves\Idle\Idle_Battle.rlmotion", "Studio Mocap-Sword & Shield Stunts\Attack Combo\Atk_2xCombo02.rlmotion"]
-    } else {
+        motions := ["Studio Mocap-Sword & Shield Moves\Idle\Idle_Battle.rlmotion"
+                  , "Studio Mocap-Sword & Shield Stunts\Attack Combo\Atk_2xCombo02.rlmotion"]
+    }
+    if (class_bool == 1) {
         class_str := CLASS_MAGE
-        motions := ["Studio Mocap-Magical Moves\Attack\M_LS_MageSpellCast_05.rlmotion", "Studio Mocap-Magical Moves\Summon\F_LS_Warning_Idle.rlmotion"]
+        motions := ["Studio Mocap-Magical Moves\Attack\M_LS_MageSpellCast_05.rlmotion"
+                  , "Studio Mocap-Magical Moves\Summon\F_LS_Warning_Idle.rlmotion"]
+    }
+    if (class_bool == 2) {
+        class_str := CLASS_CLERIC
+        motions := ["Studio Mocap-Magical Moves\Attack\F_LS_MageSpellCast_02.rlMotion"
+                  , "Studio Mocap-Sword & Shield Moves\Move\RunForward.rlMotion"
+                  , "Studio Mocap-Sword & Shield Moves\Idle\Idle_Battle.rlmotion"]
+    }
+    if (class_bool == 3) {
+        class_str := CLASS_ROGUE
+        motions := ["Human Mocap-Pistol Stunt\Dagger Melee\Attack\K03_Dagger_Atk_Stab_Jaw.rlMotion"
+                  , "Human Mocap-Assassin Moves\Mobility\Crouch_to_Sneak_Walk.rlMotion"
+                  , "Studio Mocap-Sword & Shield Moves\Idle\Idle_Battle.rlmotion"]
     }
 
     ; Gender & Hair
@@ -518,7 +540,9 @@ while num_generated <= NUM_TO_GENERATE
     }
 
     ; Hair Color
-    Random, hair_root_idx, 1, HAIR_COLORS.MaxIndex()
+    Random, full_hair_range, 0, 1
+    max_hair_idx := full_hair_range ? HAIR_COLORS.MaxIndex() : SAFE_HAIR_MAX_IDX
+    Random, hair_root_idx, 1, max_hair_idx
     hair_root := HAIR_COLORS[hair_root_idx]
 
     Random, funny_hair_chance, 1, 10 ; 10% chance for mixmatched hair ends
@@ -576,7 +600,7 @@ while num_generated <= NUM_TO_GENERATE
 
     wait_loading()
 
-    Sleep, 400 ; UI often stalls out here, let it cool off a bit
+    Sleep, 1000 ; UI often stalls out here, let it cool off a bit
 
     if beard_str {
         beard_was_set := 0
@@ -718,7 +742,7 @@ while num_generated <= NUM_TO_GENERATE
 
     Click, 453, 221 ; Poses
     Click, 83, 272 ; Body
-    Click, 327, 707 2 ; Idle Pose
+    Click, 327, 798 2 ; Idle Pose / y-pos changes based on installed content :(
     wait_loading()
 
     if (gender_str == "Male") {
@@ -761,7 +785,7 @@ while num_generated <= NUM_TO_GENERATE
     } else {
         MouseMove, 702, 762
         Click, Down
-        MouseMove, 702, 347
+        MouseMove, 702, 387
     }
     Click, Up
 
@@ -825,15 +849,24 @@ while num_generated <= NUM_TO_GENERATE
             Click, 34, 398 ; Custom radio selector
             Click, 324, 536 ; clear all
             for index, motion in motions {
-                Click 250, 539 ; open file
-                WinWaitActive, Open
+                clicked_item := 0
+                while not clicked_item {
+                    WinActivate, %EXPORT_FBX_RE%
+                    WinWaitActive, %EXPORT_FBX_RE%,, 2
+                    Click, 250, 539
+                    WinActivate, Open
+                    WinWaitActive, Open,, 2
+                    if not ErrorLevel {
+                        clicked_item := 1
+                    }
+                }
                 clip_send(MOTIONS_DIR . motion)
-                WinActivate, Export FBX
-                WinWaitActive, Export FBX
-                sleep, 200
+                Sleep, 200
             }
         }
 
+        WinActivate, %EXPORT_FBX_RE%
+        WinWaitActive, %EXPORT_FBX_RE%
         Click, 215, 773
 
         WinWaitActive, Character Creator 3
