@@ -36,13 +36,13 @@ function readCCAttrs(path) {
     for (const kv of content.split(/\r?\n/)) {
       const [k, v] = kv.split(':')
       if(!data[k]) {
-        data[k] = v
+        data[k] = v.trim()
       } else {
         const k_head = k + "_head"
         if (data[k_head]){
           console.log("REPEAT of " + k_head)
         }
-        data[k + "_head"] = v
+        data[k + "_head"] = v.trim()
       }
     }
     return data
