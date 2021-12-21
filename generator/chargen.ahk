@@ -38,7 +38,7 @@ CLASS_ROGUE := "Rogue"
 GENDER_MALE := "Male"
 GENDER_FEMALE := "Female"
 HAIR_BALD := "Bald"
-SKINS := {0 : "Default", 1 : "Clean", 2 : "Khulan"}
+SKINS := {1 : "Default", 2 : "Clean", 3 : "Khulan"}
 MALE_HEADS := ["CC3+_Neutral Male", "CC3+_Caleb_Head", "CC3+_Kevin_Head", "Caleus", "Dimitri"
              , "Matt", "Ruben" , "Timothy", "Gabriel", "Jamal", "Travis", "Khulan_Head", "Trey"
              , "Alejandro_Head"]
