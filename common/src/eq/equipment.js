@@ -12,7 +12,21 @@ const defaultEq = {
       feet:'boots',
       rightHand:'rusty-sword',
       leftHand:'worn-buckler'
-    }
+    },
+  rogue: {
+    body:'rogue-armor',
+    legs:'pocket-pants',
+    feet:'rogue-boots',
+    rightHand:'dagger'
+  },
+  cleric: {
+    body:'cleric-armor',
+    legs:'cleric-pants',
+    feet:'cleric-boots',
+    rightHand:'mace',
+    leftHand:'v-holy-symbol'
+
+  }
 }
 
 const eqInfo = {
@@ -58,7 +72,49 @@ const eqInfo = {
   'worn-buckler':{desc:'A worn buckler. Can take one more hit.',
       armor:2,
       type:'armor',
-      subType:'shield'}
+      subType:'shield'},
+  'cleric-armor':{desc:'Standard issue worn chainmail and robe for the clergy.',
+      armor:6,
+      type:'armor',
+      subType:'medium'
+  },
+  'cleric-pants': {desc:'Heavy cloth pants',
+      armor:1,
+      type:'armor',
+      subType:'light'
+    },
+  'cleric-boots': {desc:'Plated boots to protect the shins',
+      armor:2,
+      type:'armor',
+      subType:'medium'
+  },
+  'v-holy-symbol':{desc:'The holy symbol of Valoria.',
+      type:'accessory',
+      subType:'holy'
+  },
+  'mace':{desc:'A blunt instrument of the clergy.',
+    type:'weapon',
+    damage:[1, 6],
+    damageType:'blunt',
+    subType:'mace'
+  },
+  'rogue-armor':{desc:'A nicely patched up piece of leather banded mail.',
+    type:'armor',
+    subType:'light',
+    armor:4},
+  'pocket-pants':{ desc:'Pants with pockets for holding many nasty surprises.',
+    type:'armor',
+    subType:'light',
+    armor:1},
+  'rogue-boots':{ desc:'Supple leather boots with a soft step.',
+    type:'armor',
+    subType:'light',
+    armor:1},
+  'dagger': { desc:'A small stabby thing.',
+    type:'weapon',
+    damage:[1, 4],
+    damageType:'pierce',
+    subType:'dagger'}
 }
 
 module.exports = {defaultEq, eqInfo}

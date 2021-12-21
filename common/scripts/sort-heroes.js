@@ -21,16 +21,18 @@ const sort = async () => {
   const classProbs = []
   for (const [key, hs]  of Object.entries(classLists)) {
     //assumes order is stable
-    totalProbs += hs.length / total
+    totalProbs += Math.max(hs.length / total, 0.1)
     classProbs.push([key, totalProbs])
   }
-  console.log("Total probs is:", classProbs)
+
+  console.log("probs is:", classProbs)
+  console.log("total is:", totalProbs)
 
   for (let i = 0; i < total; i++) {
      const o = total - i
      let heroSet = false
      while(!heroSet){
-       const p = Math.random()
+       const p = Math.random() * totalProbs
        for ( const [key, prob] of classProbs) {
         if (prob > p) {
           if (classLists[key].length > 0){

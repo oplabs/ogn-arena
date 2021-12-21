@@ -13,8 +13,12 @@ function roll(numDice, sides) {
 
 const ATTRS = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
 
-const FIGHTER_PRIORTY = ['str', 'con', 'dex'];
-const MAGE_PRIORTY = ['int'];
+const PRIORITIES = {
+ fighter:['str', 'con', 'dex'],
+ mage:['int'],
+ rogue:['dex'],
+ cleric:['wis', 'con']
+}
 
 function reserveStats(rolls, priority, attrs) {
   for(const p of priority) {
@@ -45,27 +49,13 @@ function readCCAttrs(path) {
   }
 }
 
-function assignFighterAttrs(rolls) {
+function assignAttrs(rolls, priority) {
   const attrs = {}
   // pick strength first
-  reserveStats(rolls, FIGHTER_PRIORTY, attrs);
+  reserveStats(rolls, priority, attrs);
   
   for (const a of ATTRS) {
-    if (!FIGHTER_PRIORTY.includes(a)) {
-      attrs[a] = rolls.shift();
-    }
-  }
-
-  return attrs;
-}
-
-function assignMageAttrs(rolls) {
-  const attrs = {}
-  // pick strength first
-  reserveStats(rolls, MAGE_PRIORTY, attrs);
-  
-  for (const a of ATTRS) {
-    if (!MAGE_PRIORTY.includes(a)) {
+    if (!priority.includes(a)) {
       attrs[a] = rolls.shift();
     }
   }
@@ -114,7 +104,7 @@ const summon = async () => {
         rolls.push(roll(3, 6));
       }
       const total = rolls.reduce( (a, acc) => a+ acc)
-      const attrs = charClass == "mage" ? assignMageAttrs(rolls) : assignFighterAttrs(rolls);
+      const attrs = assignAttrs(rolls, PRIORITIES[charClass])
 
       let data
       do {

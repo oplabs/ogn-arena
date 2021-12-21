@@ -39,6 +39,7 @@ const Hero = ({hero}) => {
           <Tooltip id={"skill-" + skill} className="skillTooltip">
             <div style={{width:300, height:150}}>
               <img src={skillImg} className="float-start" style={{height:150}}/>
+              <p>{info.title}</p>
               <p>{info.desc}</p>
             </div>
           </Tooltip>
@@ -66,14 +67,24 @@ const Hero = ({hero}) => {
           <Tooltip id={"eq-" + eq} className="eqTooltip">
             <div style={{width:300, height:150}}>
               <img src={eqImg} className="float-start" style={{height:150}}/>
-              {info.type == 'weapon' ? <>
-              <p>{info.subType} {info.damageType}({info.damage[0]}-{info.damage[1] * info.damage[0]})</p>
-              <p>{info.desc}</p>
-              </> : <>
-              <p>{info.subType} armor ({info.armor})</p>
-              <p>{info.desc}</p>
-              </>
-              }
+              {(() => {
+              switch(info.type) {
+                case 'weapon': 
+                  return <>
+                      <p>{info.subType} {info.damageType}({info.damage[0]}-{info.damage[1] * info.damage[0]})</p>
+                      <p>{info.desc}</p>
+                    </> 
+                case 'armor':
+                  return <>
+                      <p>{info.subType} armor ({info.armor})</p>
+                      <p>{info.desc}</p>
+                    </>
+                default:
+                  return <>
+                    <p>{info.desc}</p>
+                  </>
+                }
+              })()}
             </div>
           </Tooltip>
         }
