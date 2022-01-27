@@ -13,8 +13,8 @@ const FixSkinMapping = {
   }
 
 
-
 const resourceDir = process.env.RESOURCE_DIRECTORY
+const doFix = false // NOTE: change this to true to make actual fix, should only do this ONCE!
 
 const sort = async () => {
   const classLists = {}
@@ -43,10 +43,10 @@ const sort = async () => {
       const content = fs.readFileSync(file, "utf8")
       if (content.indexOf(oldSkinString) > -1) {
         const result = content.replace(oldSkinString, newSkinString)
-        fs.writeFileSync(file, result, 'utf8')
+        doFix && fs.writeFileSync(file, result, 'utf8')
       }
       //save to the object
-      await hero.save()
+      doFix && await hero.save()
     }
   }
 }
