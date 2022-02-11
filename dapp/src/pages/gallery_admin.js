@@ -5,6 +5,7 @@ import Link from 'next/link'
 import StatsDisplay from '../components/StatsDisplay'
 import OAPagination from '../components/OAPagination'
 import { useRouter } from 'next/router'
+import { signOut } from 'next-auth/react'
 
 const { partGroups } = require('common/src/cc/parts_mapping');
 
@@ -141,10 +142,14 @@ function Gallery({characters, totalPages, currentPage}) {
       <Link href="/">
         <img style={{width:100 }} src={'/favicons/270x270.png'} className="float-start" />
       </Link>
+      
       <div className="col-6 mt-3 p-0" >
       <Form onSubmit={handleSearch}>
         <Form.Control type="text" name="search" value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." />
       </Form>
+      </div>
+      <div className="col-3">
+        <button onClick={() => signOut()}>Sign out</button>
       </div>
     </div>
     {!characters.length && <div className="row m-5">There are no results for this search query</div>}
@@ -210,4 +215,5 @@ export async function getServerSideProps({query}) {
   return { props: { characters, totalPages, currentPage } }
 }
 
+Gallery.auth = true
 export default Gallery
