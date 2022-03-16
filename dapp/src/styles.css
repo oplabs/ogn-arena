@@ -1,12 +1,39 @@
+@font-face{
+  font-family:Avenir;
+  font-weight:normal;
+  src:url('/fonts/avenir/Avenir-Book-01.ttf');
+}
+
+@font-face{
+  font-family:Avenir;
+  font-weight:bold;
+  src:url('/fonts/avenir/Avenir-Heavy-05.ttf');
+}
+
+@font-face{
+  font-family:Avenir;
+  font-weight:900;
+  src:url('/fonts/avenir/Avenir-Black-03.ttf');
+}
+
+
+@font-face{
+  font-family:Avenir;
+  font-weight:lighter;
+  src:url('/fonts/avenir/Avenir-Light-07.ttf');
+}
+
 html {
     /* To make use of full height of page*/
     min-height: 100%;
     margin: 0;
 }
+
 body {
     color:#e2d9d0;
     min-height: 100%;
     margin: 0;
+    font-family: Avenir;
     background-image: url("/images/blades_tile_bg.jpg");
     background-repeat: repeat;
 }
