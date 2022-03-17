@@ -1,46 +1,64 @@
 function HomePage() {
-  return <div>
-    <div className="navbar-holder">
-      <nav className="navbar navbar-expand-lg navbar-origin navbar-dark">
-        <div className="container">
-          <a className="navbar-brand" href="/">
-            <div className="logo-container">
-              <img src="/images/web/logo/logo.png"
-                srcSet="/images/web/logo/logo@2x.png 2x, /images/web/logo/logo@3x.png 3x"
-                className="bov-logo"
-                alt="Blades of Valor Logo" />
+  const eqCell = (eqItem) => {
+      return <div className="eqCell">
+        <img src={`/images/eq_icons/${eqItem}.png`} />
+     </div>
+  }
+  const separatorBg = (imgName, overlayText) => {
+        return <div className="SeparatorBg">
+            <img src={`/images/web/separator/${imgName}.jpg`}
+               srcSet={`/images/web/separator/${imgName}@2x.jpg 2x, /images/web/separator/${imgName}@3x.jpg 3x`}
+               width='100%'/>
+            <div className="SeparatorBgText">
+            {overlayText}
             </div>
-          </a>
         </div>
-        <span className="Home">Home</span>
-        <span className="Marketplace">Marketplace</span>
-      </nav>
-    </div>
+
+  }
+  return <div className="Full">
     <main className="landing-page">
-      <div className="contents d-flex flex-column justify-content-center align-items-center">
-        <div className="large-logo">
-          <img src="/images/web/large-logo/logo.png"
-            srcSet="/images/web/large-logo/logo@2x.png 2x, /images/web/large-logo/logo@3x.png 3x"
-             />
-        </div>
-        <div className="NFT-headline">
-          <span className='bold'>Mint</span>, Level up, Gear up, <span className='bold'>Fight</span>
-        </div>
-        <div className="NFT-earn">
-          Fight to earn with your hero NFT on the blockchain
-        </div>
-        <div className="NFT-start">
-          Start with a <span className='bold'>Free</span> mint for the first generation of 2,000 hero NFTs
-        </div>
-        <div className="Mint-button">
-          <span className="Mint-now">Mint Now</span>
-        </div>
-      <div className="Stake-your-hero-pre">
-        <p>Stake your hero, prepare for each fight, and earn as you gain experience.</p>
-        <p>Every fight is streamed live on Twitch with the same level of video quality shown in our trailer.</p>
-        We’re building the next evolution of blockchain games for a global audience.
+    <div className="head-section">
+      <div className="navbar-holder">
+        <nav className="navbar navbar-expand-lg navbar-origin navbar-dark">
+          <div className="container">
+            <a className="navbar-brand" href="/">
+              <div className="logo-container">
+                <img src="/images/web/logo/logo.png"
+                  srcSet="/images/web/logo/logo@2x.png 2x, /images/web/logo/logo@3x.png 3x"
+                  className="bov-logo"
+                  alt="Blades of Valor Logo" />
+              </div>
+            </a>
+          </div>
+          <span className="Home">Home</span>
+          <span className="Marketplace">Marketplace</span>
+        </nav>
       </div>
+        <div className="contents d-flex flex-column justify-content-center align-items-center">
+          <div className="large-logo">
+            <img src="/images/web/large-logo/logo.png"
+              srcSet="/images/web/large-logo/logo@2x.png 2x, /images/web/large-logo/logo@3x.png 3x"
+               />
+          </div>
+          <div className="NFT-headline">
+            <span className='bold'>Mint</span>, Level up, Gear up, <span className='bold'>Fight</span>
+          </div>
+          <div className="NFT-earn">
+            Fight to earn with your hero NFT on the blockchain
+          </div>
+          <div className="NFT-start">
+            Start with a <span className='bold'>Free</span> mint for the first generation of 2,000 hero NFTs
+          </div>
+          <div className="Mint-button">
+            <span className="Mint-now">Mint Now</span>
+          </div>
+        <div className="Stake-your-hero-pre">
+          <p>Stake your hero, prepare for each fight, and earn as you gain experience.</p>
+          <p>Every fight is streamed live on Twitch with the same level of video quality shown in our trailer.</p>
+          We’re building the next evolution of blockchain games for a global audience.
+        </div>
       </div>
+    </div>
       <div className="contents d-flex flex-column align-items-center blades-of-valor-site">
         <div className="video">
         </div>
@@ -53,25 +71,25 @@ function HomePage() {
               Fighter
             </div>
             <div className="CClass-description">
-              These heroes could be questing knights, royal champions, elite foot soldiers, hardened mercenaries, or bandit kings. They all share an mastery with physical weapons and armor, and a thorough knowledge of the skills of combat. And they are well acquainted with death, both meting it out and staring it defiantly in the face.
+            Champions of the blade and in meting out harsh rewards for those that would dare challenge them in the arena.  These warriors have trained in all manner of combat in order to defeat all manner of foe.
             </div>
           </div>
           <div className="CClass-images">
             <img src="/images/web/classes/fighter-1.jpg"
-                 srcset="/images/web/classes/fighter-1@2x.jpg 2x, /images/web/classes/fighter-1@3x.jpg 3x"
+                 srcSet="/images/web/classes/fighter-1@2x.jpg 2x, /images/web/classes/fighter-1@3x.jpg 3x"
                className="CClass-Image1" />
             <img src="/images/web/classes/fighter-2.jpg"
-                 srcset="/images/web/classes/fighter-2@2x.jpg 2x, /images/web/classes/fighter-2@3x.jpg 3x"
+                 srcSet="/images/web/classes/fighter-2@2x.jpg 2x, /images/web/classes/fighter-2@3x.jpg 3x"
                className="CClass-Image1" />
           </div>
         </div>
         <div className="CClass-container d-flex flex-wrap">
           <div className="CClass-images">
             <img src="/images/web/classes/rogue-1.jpg"
-                 srcset="/images/web/classes/rogue-1@2x.jpg 2x, /images/web/classes/rouge-1@3x.jpg 3x"
+                 srcSet="/images/web/classes/rogue-1@2x.jpg 2x, /images/web/classes/rouge-1@3x.jpg 3x"
                className="CClass-Image1" />
             <img src="/images/web/classes/rogue-2.jpg"
-                 srcset="/images/web/classes/rogue-2@2x.jpg 2x, /images/web/classes/rouge-2@3x.jpg 3x"
+                 srcSet="/images/web/classes/rogue-2@2x.jpg 2x, /images/web/classes/rouge-2@3x.jpg 3x"
                className="CClass-Image1" />
           </div>
           <div className="CClass-info">
@@ -79,7 +97,7 @@ function HomePage() {
              Rogue 
             </div>
             <div className="CClass-description">
-            A rogue is the master of the shadows and the slight of hand. They rely on cunny, stealth, and their foes’ vulnerabilities to get the upper hand in any situation. They have a knack for finding the solution to just about any problem, demonstrating a resourcefulness and versatility that is the cornerstone of any successful adventuring party.
+            Like a whisper on the lips, the Rogue is a shadow in the minds of men.  The wise would be cautious not to forget their presence on the battlefield, unleashing crippling blows on those that do.
             </div>
           </div>
         </div>
@@ -89,25 +107,25 @@ function HomePage() {
               Mage
             </div>
             <div className="CClass-description">
-             Mages are supreme magic-users, defined and united as a class by the spells they cast. Drawing on the subtle weave of magic that permeates the cosmos, mages cast spells of explosive fire, arcing lightning, subtle deception, and brute-force mind control. Their magic conjures monsters from other planes of existence, glimpses the future, or turns slain foes into zombies. Their mightiest spells change one substance into another, call meteors down from the sky, or open portals to other worlds.
+The masters of forces both seen and unseen, mages weave the forces of nature into powerful manifestations in order to defeat their enemies.
             </div>
           </div>
           <div className="CClass-images">
             <img src="/images/web/classes/mage-1.jpg"
-                 srcset="/images/web/classes/mage-1@2x.jpg 2x, /images/web/classes/mage-1@3x.jpg 3x"
+                 srcSet="/images/web/classes/mage-1@2x.jpg 2x, /images/web/classes/mage-1@3x.jpg 3x"
                className="CClass-Image1" />
             <img src="/images/web/classes/mage-2.jpg"
-                 srcset="/images/web/classes/mage-2@2x.jpg 2x, /images/web/classes/mage-2@3x.jpg 3x"
+                 srcSet="/images/web/classes/mage-2@2x.jpg 2x, /images/web/classes/mage-2@3x.jpg 3x"
                className="CClass-Image1" />
           </div>
         </div>
         <div className="CClass-container d-flex flex-wrap">
           <div className="CClass-images">
             <img src="/images/web/classes/cleric-1.jpg"
-                 srcset="/images/web/classes/cleric-1@2x.jpg 2x, /images/web/classes/cleric-1@3x.jpg 3x"
+                 srcSet="/images/web/classes/cleric-1@2x.jpg 2x, /images/web/classes/cleric-1@3x.jpg 3x"
                className="CClass-Image1" />
             <img src="/images/web/classes/cleric-2.jpg"
-                 srcset="/images/web/classes/cleric-2@2x.jpg 2x, /images/web/classes/cleric-2@3x.jpg 3x"
+                 srcSet="/images/web/classes/cleric-2@2x.jpg 2x, /images/web/classes/cleric-2@3x.jpg 3x"
                className="CClass-Image1" />
           </div>
           <div className="CClass-info">
@@ -115,14 +133,97 @@ function HomePage() {
              Cleric 
             </div>
             <div className="CClass-description">
-              <p>Arms and eyes upraised toward the sun and a prayer on his lips, the cleric begins to glow with an inner light that spills out to heal her battle-worn companions.</p>
-Clerics are intermediaries between the mortal world and the distant planes of the gods. As varied as the gods they serve, clerics strive to embody the handiwork of their deities. No ordinary priest, a cleric is imbued with divine magic.
+        A fierce dedication to their beliefs drives within them an extraordinary determination of force to be unleashed on those that would challenge them.  Their training is not in the blade but rather, the hearts of men.
             </div>
           </div>
         </div>
+        <div style={{height:60}}/>
+        {separatorBg('bg', 'Heroes become more valuable as they gain experience with every battle')}
+        <div className="Equipment d-flex flex-column align-items-center">
+          <span className="Equipment-title">Equipment</span>
+          <span className="Equipment-description">Each hero can equip gear that can tip the balance of battle in their favor</span>
+          <span className="Equipment-sub">Current default equipment(non-NFTs)</span>
+          <div className="Equipment-default Container">
+            <div className="row">
+             {['leather-armor', 'cleric-armor', 'mage-robe', 'rogue-armor'].map( eq => <div key={eq} className="col-sm">
+                {eqCell(eq)}
+              </div>)}
+            </div>
+            <div className="row">
+             {['canvas-pants', 'cleric-pants', 'mage-pants', 'pocket-pants'].map( eq => <div key={eq} className="col-sm">
+                {eqCell(eq)}
+              </div>)}
+            </div>
+            <div className="row">
+             {['boots', 'cleric-boots', 'mage-boots', 'rogue-boots'].map( eq => <div key={eq} className="col-sm">
+                {eqCell(eq)}
+              </div>)}
+            </div>
+            <div className="row">
+             {['rusty-sword', 'mace', 'mage-staff', 'dagger'].map( eq => <div key={eq} className="col-sm">
+                {eqCell(eq)}
+              </div>)}
+            </div>
+          </div>
+         <div className="Equipment-sub"><p>Sample upcoming NFT equipment</p>Acquired through purchase or won in battle</div>
+         <div className="Equipment-default Container">
+            <div className="row">
+             {['breast-plate', 'leather-pants', 'shield', 'long-sword'].map( eq => <div key={eq} className="col-sm">
+                {eqCell(eq)}
+              </div>)}
+            </div>
+          </div>
+        </div>
+        {separatorBg('bg-2', 'Battle your opponents in one of three different arenas')}
       </div>
     </main>
   <style jsx>{`
+    .Equipment-sub{
+      width: 600px;
+      margin: 21px 0 10px 0;
+      font-family: Avenir;
+      font-size: 22px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      text-align: center;
+      color: #3d3c3d;
+    }
+    .Equipment-description{
+      width: 800px;
+      height: 40px;
+      margin: 21px 0 36px 0;
+      font-family: Avenir;
+      font-size: 28px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      text-align: center;
+      color: #3d3c3d;
+    }
+    .Equipment-title{
+      width: 818px;
+      height: 40px;
+      margin: 0 287px 31px 261px;
+      font-family: Avenir;
+      font-size: 72px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 0.39;
+      letter-spacing: normal;
+      text-align: center;
+      color: #000;
+    }
+    .Equipment{
+      width: 100%;
+      padding: 100px 24px 39px 50px;
+      background-color: #fff;
+    }
     .CClass-Image1{
       width: 440px;
       height: 440px;
@@ -156,7 +257,7 @@ Clerics are intermediaries between the mortal world and the distant planes of th
       width:400px;
     }
     .CClass-container {
-       margin: 99px 0 6px 0;
+       margin: 69px 0 6px 0;
        gap: 40px;
     }
     .Character-Classes {
@@ -179,7 +280,6 @@ Clerics are intermediaries between the mortal world and the distant planes of th
     .blades-of-valor-site {
       width: 1440px;
       height: 12114px;
-      background-color: #000;
     }
     .video {
       width: 1040px;
@@ -225,7 +325,7 @@ Clerics are intermediaries between the mortal world and the distant planes of th
     .Mint-button{
       width: 256px;
       height: 66px;
-      margin: 53px 0px 71px 0px;
+      margin: 23px 0px 31px 0px;
       padding: 18px 41px 8px;
       border-radius: 8px;
       background-color: #b6a273;
@@ -247,7 +347,7 @@ Clerics are intermediaries between the mortal world and the distant planes of th
     .Stake-your-hero-pre{
       width: 1191px;
       height: 138px;
-      margin: 71px 0 0 0;
+      margin: 31px 0 0 0;
       font-family: Avenir;
       font-size: 28px;
       font-weight: normal;
@@ -261,7 +361,7 @@ Clerics are intermediaries between the mortal world and the distant planes of th
     .large-logo {
       width: 608px;
       height: 248px;
-      margin: 63px 0px 112px 0px;
+      margin: 43px 0px 10px 0px;
       object-fit: contain;
     }
     .Home {
@@ -292,8 +392,25 @@ Clerics are intermediaries between the mortal world and the distant planes of th
       min-height: none;
       height: 100%;
     }
-    body {
+    .head-section{
+      background-image: url(/images/web/background/bg.jpg);
+      background-image: 
+      -webkit-image-set(
+          url(/images/web/background/bg.jpg) 1x,
+          url(/images/web/background/bg@2x.jpg) 2x,
+          url(/images/web/background/bg@3x.jpg) 3x,
+          );
+      background-image: 
+        image-set(
+          url(/images/web/background/bg.jpg) 1x,
+          url(/images/web/background/bg@2x.jpg) 2x,
+          url(/images/web/background/bg@3x.jpg) 3x,
+            );
+      background-size: cover;
+    }
+    .Full {
       color:#fff;
+      background-color: #000;
       min-height: none;
       height:100%;
       font-family: Avenir;
