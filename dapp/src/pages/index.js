@@ -21,7 +21,7 @@ function HomePage() {
     <div className="head-section">
       <div className="navbar-holder">
         <nav className="navbar navbar-expand-lg navbar-origin navbar-dark">
-          <div className="container">
+          <div>
             <a className="navbar-brand" href="/">
               <div className="logo-container">
                 <img src="/images/web/logo/logo.png"
@@ -31,15 +31,14 @@ function HomePage() {
               </div>
             </a>
           </div>
-          <span className="Home">Home</span>
           <span className="Marketplace">Marketplace</span>
         </nav>
       </div>
-        <div className="contents d-flex flex-column justify-content-center align-items-center">
+      <div className="contents d-flex flex-column justify-content-center align-items-center">
           <div className="large-logo">
             <img src="/images/web/large-logo/logo.png"
               srcSet="/images/web/large-logo/logo@2x.png 2x, /images/web/large-logo/logo@3x.png 3x"
-               />
+              width="100%" />
           </div>
           <div className="NFT-headline">
             <span className='bold'>Mint</span>, Level up, Gear up, <span className='bold'>Fight</span>
@@ -78,20 +77,20 @@ function HomePage() {
           <div className="CClass-images">
             <img src="/images/web/classes/fighter-1.jpg"
                  srcSet="/images/web/classes/fighter-1@2x.jpg 2x, /images/web/classes/fighter-1@3x.jpg 3x"
-               className="CClass-Image1" />
+               className="CClass-Image1" width="100%" />
             <img src="/images/web/classes/fighter-2.jpg"
                  srcSet="/images/web/classes/fighter-2@2x.jpg 2x, /images/web/classes/fighter-2@3x.jpg 3x"
-               className="CClass-Image1" />
+               className="CClass-Image1" width="100%" />
           </div>
         </div>
         <div className="CClass-container d-flex flex-wrap">
           <div className="CClass-images">
             <img src="/images/web/classes/rogue-1.jpg"
                  srcSet="/images/web/classes/rogue-1@2x.jpg 2x, /images/web/classes/rouge-1@3x.jpg 3x"
-               className="CClass-Image1" />
+               className="CClass-Image1" width="100%" />
             <img src="/images/web/classes/rogue-2.jpg"
                  srcSet="/images/web/classes/rogue-2@2x.jpg 2x, /images/web/classes/rouge-2@3x.jpg 3x"
-               className="CClass-Image1" />
+               className="CClass-Image1" width="100%" />
           </div>
           <div className="CClass-info">
             <div className="CClass-title">
@@ -114,20 +113,20 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
           <div className="CClass-images">
             <img src="/images/web/classes/mage-1.jpg"
                  srcSet="/images/web/classes/mage-1@2x.jpg 2x, /images/web/classes/mage-1@3x.jpg 3x"
-               className="CClass-Image1" />
+               className="CClass-Image1"  width="100%" />
             <img src="/images/web/classes/mage-2.jpg"
                  srcSet="/images/web/classes/mage-2@2x.jpg 2x, /images/web/classes/mage-2@3x.jpg 3x"
-               className="CClass-Image1" />
+               className="CClass-Image1"  width="100%" />
           </div>
         </div>
         <div className="CClass-container d-flex flex-wrap">
           <div className="CClass-images">
             <img src="/images/web/classes/cleric-1.jpg"
                  srcSet="/images/web/classes/cleric-1@2x.jpg 2x, /images/web/classes/cleric-1@3x.jpg 3x"
-               className="CClass-Image1" />
+               className="CClass-Image1"  width="100%" />
             <img src="/images/web/classes/cleric-2.jpg"
                  srcSet="/images/web/classes/cleric-2@2x.jpg 2x, /images/web/classes/cleric-2@3x.jpg 3x"
-               className="CClass-Image1" />
+               className="CClass-Image1"  width="100%" />
           </div>
           <div className="CClass-info">
             <div className="CClass-title">
@@ -233,6 +232,9 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
                   Developer</div>
                 </div>
                 <div className="Member col-sm">
+                  <div className="Member-headshot">
+                     <img src="/images/web/team/headshot-jeff.png" />
+                  </div>
                   <div className="Member-info"><p className='bold'>Jeff Gibson</p>
                   Developer</div>
                 </div>
@@ -279,6 +281,9 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       </div>
     </main>
   <style jsx>{`
+    nav{
+      justify-content: space-between;
+    }
     .Footer {
       justify-content: space-between;
       width:100%;
@@ -289,7 +294,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       margin: 50px 0 0 50px;
       opacity: 0.7;
       font-family: HelveticaNeue;
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -304,7 +309,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       margin: 50px 50px;
       opacity: 0.7;
       font-family: HelveticaNeue;
-      font-size: 24px;
+      font-size: 1.5rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -320,10 +325,11 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       margin-bottom:60px;
     }
     .FAQ-questions {
+      max-width:100%;
       width: 956px;
       margin: 73px 0 81px 0;
       font-family: Avenir;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -333,11 +339,12 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #fff;
     }
     .FAQ-title {
+      max-width:100%;
       width: 818px;
       height: 40px;
       margin: 132px 0 73px 0;
       font-family: Avenir;
-      font-size: 72px;
+      font-size: 4.5rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -351,7 +358,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       height: 14px;
       margin: 81px 0 25px 0;
       font-family: Avenir;
-      font-size: 22px;
+      font-size: 1.375rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -367,7 +374,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     .Member-info {
       margin-top:50px;
       font-family: Avenir;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -383,7 +390,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     .Team-title{
       font-family: Avenir;
       margin-bottom: 60px;
-      font-size: 72px;
+      font-size: 4.5rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -403,7 +410,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       width: 500px;
       margin: 23px 0 0px;
       font-family: Avenir;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -416,7 +423,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       height: 40px;
       margin: 149px 0 105px 0;
       font-family: Avenir;
-      font-size: 72px;
+      font-size: 4.5rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -429,7 +436,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       width: 600px;
       margin: 21px 0 10px 0;
       font-family: Avenir;
-      font-size: 22px;
+      font-size: 1.375rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -439,11 +446,12 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #3d3c3d;
     }
     .Equipment-description{
+      max-width:100%;
       width: 800px;
       height: 40px;
       margin: 21px 0 36px 0;
       font-family: Avenir;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -453,11 +461,12 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #3d3c3d;
     }
     .Equipment-title{
+      max-width:100%;
       width: 818px;
       height: 40px;
       margin: 0 287px 31px 261px;
       font-family: Avenir;
-      font-size: 72px;
+      font-size: 4.5rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -478,9 +487,8 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     }
     .CClass-description{
       width: 399px;
-      height: 362px;
       font-family: Avenir;
-      font-size: 18px;
+      font-size: 1.125rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -492,7 +500,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       width: 114px;
       height: 40px;
       font-family: Avenir;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -508,11 +516,12 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
        gap: 40px;
     }
     .Character-Classes {
+      max-width:100%;
       width: 818px;
       height: 40px;
       margin: 150px 0 92px 0;
       font-family: Avenir;
-      font-size: 72px;
+      font-size: 4.5rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -529,41 +538,41 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       font-weight: bold;
     }
     .blades-of-valor-site {
-      width: 1440px;
     }
     .video {
+      max-width:100%;
       width: 1040px;
-      height: 585px;
       margin: 90px 0px 150px 0px;
       border: solid 1px #979797;
       background-color: #d8d8d8;
     }
     .NFT-headline{
+      max-width:100%;
       width: 932px;
-      height: 40px;
       margin: 112px 0px 10px 0px;
       font-family: Avenir;
-      font-size: 38px;
+      font-size: 2.375rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
-      line-height: 0.74;
+      line-height: 1;
       letter-spacing: normal;
       text-align: center;
     }  
     .NFT-earn{
+      max-width:100%;
       width: 932px;
-      height: 40px;
       margin: 10px 0px 45px 0px;
-      font-size:20px;
+      font-size:1.25rem;
       text-align: center;
     }
     .NFT-start{
+      max-width:100%;
       width: 1191px;
       height: 40px;
       margin: 45px 0px 43px 0px;
       font-family: Avenir;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -583,9 +592,8 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     }
     .Mint-now{
       width: 174px;
-      height: 40px;
       font-family: Avenir;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: 900;
       font-stretch: normal;
       font-style: normal;
@@ -595,11 +603,12 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #fff;
     }
     .Stake-your-hero-pre{
+      max-width:100%;
       width: 1191px;
       height: 138px;
       margin: 31px 0 0 0;
       font-family: Avenir;
-      font-size: 28px;
+      font-size: 1.75rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -609,8 +618,8 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #fff;
     }
     .large-logo {
+      max-width:100%;
       width: 608px;
-      height: 248px;
       margin: 43px 0px 10px 0px;
       object-fit: contain;
     }
@@ -618,7 +627,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       width: 38px;
       height: 16px;
       margin: 26px 50px 111px 101px;
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -630,7 +639,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       width: 78px;
       height: 16px;
       margin: 26px 50px 111px 27px;
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
@@ -663,6 +672,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       background-color: #000;
       min-height: none;
       height:100%;
+      overflow:auto;
       font-family: Avenir;
     }
    `}</style>
