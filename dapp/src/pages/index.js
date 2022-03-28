@@ -483,8 +483,13 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     }
     .CClass-Image1{
       width: 440px;
-      height: 440px;
       object-fit: contain;
+    }
+    @media only screen and (max-device-width: 800px) {
+      .CClass-Image1{
+        width: 50%;
+        object-fit: contain;
+      }
     }
     .CClass-description{
       width: 399px;
@@ -541,8 +546,10 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     .blades-of-valor-site {
     }
     .video {
-      max-width:100%;
-      width: 1040px;
+      max-height:720px;
+      height:100vh;
+      max-width:1280px;
+      width:100vw;
       margin: 90px 0px 150px 0px;
       border: solid 1px #979797;
       background-color: #d8d8d8;
