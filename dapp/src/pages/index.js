@@ -61,6 +61,7 @@ function HomePage() {
     </div>
       <div className="contents d-flex flex-column align-items-center blades-of-valor-site">
         <div className="video">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Meh1PlGYzI0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div className="Character-Classes">
           Character Classes
@@ -514,18 +515,18 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     .CClass-container {
        margin: 69px 0 6px 0;
        gap: 40px;
+       width: 100%;
     }
     .Character-Classes {
       max-width:100%;
       width: 818px;
-      height: 40px;
       margin: 150px 0 92px 0;
       font-family: Avenir;
       font-size: 4.5rem;
       font-weight: normal;
       font-stretch: normal;
       font-style: normal;
-      line-height: 0.39;
+      line-height: 1;
       letter-spacing: normal;
       text-align: center;
       color: #fff;
@@ -605,8 +606,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     .Stake-your-hero-pre{
       max-width:100%;
       width: 1191px;
-      height: 138px;
-      margin: 31px 0 0 0;
+      margin: 31px 0 20px 0;
       font-family: Avenir;
       font-size: 1.75rem;
       font-weight: normal;
