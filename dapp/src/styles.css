@@ -63,6 +63,7 @@ body {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   position:absolute;
+  padding:10px;
 }
 
 .SeparatorText{
@@ -73,21 +74,50 @@ body {
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
-  line-height: 0.74;
+  line-height: 1;
   letter-spacing: normal;
   text-align: center;
   color: #fff;
   top:45%;
   left:0;
-  position:absolute;
+  margin:20px;
 }
 
 .SeparatorBgImg {
   object-fit: contain;
   opacity:0.5;
   width:100vw;
+  min-width:800px;
 }
 .SeparatorBg{
   width:100%;
   position:relative;
+}
+.ExampleCharacterTitle{
+  margin-top:40px;
+  width:80px;
+  font-size:1.75rem;
+  text-align:center;
+}
+@media only screen and (max-device-width: 800px) {
+  .ExampleCharacterTitle{
+    font-size:1rem;
+  }
+
+  .ExampleCharacter{
+    width:90px;
+  }
+}
+.ExampleChracters{
+  margin-top:30px;
+  justify-content:center;
+  width:100%;
+}
+.ExampleCharacter{
+  text-align:center;
+  cursor:pointer;
+}
+.ExampleCharacterImg{
+  width:100px;
+  padding:10px;
 }

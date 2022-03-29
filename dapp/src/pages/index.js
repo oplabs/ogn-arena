@@ -1,8 +1,18 @@
+import Link from 'next/link'
+
 function HomePage() {
   const eqCell = (eqItem) => {
       return <div className="eqCell">
         <img src={`/images/eq_icons/${eqItem}.png`} />
      </div>
+  }
+  const ExampleCharacter = ({name, heroId, contentId}) => {
+    return <Link href={`/hero/${heroId}`}>
+        <div className="ExampleCharacter col-sm">
+          <img src={`/pub/heroes/${contentId}/Face.jpg`} className="ExampleCharacterImg"/>
+          <div className="ExampleCharacterName">{name}</div>
+        </div>
+      </Link>
   }
   const separatorBg = (imgName, overlayText) => {
         return <div className="SeparatorBg">
@@ -61,7 +71,7 @@ function HomePage() {
     </div>
       <div className="contents d-flex flex-column align-items-center blades-of-valor-site">
         <div className="video">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Meh1PlGYzI0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Meh1PlGYzI0?controls=2&rel=0&showinfo=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         <div className="Character-Classes">
           Character Classes
@@ -83,6 +93,13 @@ function HomePage() {
                  srcSet="/images/web/classes/fighter-2@2x.jpg 2x, /images/web/classes/fighter-2@3x.jpg 3x"
                className="CClass-Image1" width="100%" />
           </div>
+          
+        </div>
+        <div className="ExampleChracters d-flex flex-wrap">
+            <div className="ExampleCharacterTitle col-sm">Example Fighters</div>
+            <ExampleCharacter name='Jalana Marsk' heroId={743} contentId={'Female_Fighter_83_nov29'} />
+            <ExampleCharacter name='Anton Uuthrakt' heroId={853} contentId={'Male_Fighter_51_nov29'} />
+            <ExampleCharacter name='Marcon Ankhalab' heroId={858} contentId={'Male_Fighter_64_nov29'} />
         </div>
         <div className="CClass-container d-flex flex-wrap">
           <div className="CClass-images">
@@ -102,6 +119,12 @@ function HomePage() {
             </div>
           </div>
         </div>
+        <div className="ExampleChracters d-flex flex-wrap">
+            <ExampleCharacter name='Jun Chien' heroId={990} contentId={'Male_Rogue_3_dec20b2'} />
+            <ExampleCharacter name='Umara Marivaldi' heroId={966} contentId={'Female_Rogue_8_dec20b1'} />
+            <ExampleCharacter name='Grim Fargo' heroId={986} contentId={'Male_Rogue_2_dec20b2'} />
+            <div className="ExampleCharacterTitle col-sm">Example Rogues</div>
+        </div>
         <div className="CClass-container d-flex flex-wrap">
           <div className="CClass-info">
             <div className="CClass-title">
@@ -120,6 +143,12 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
                className="CClass-Image1"  width="100%" />
           </div>
         </div>
+        <div className="ExampleChracters d-flex flex-wrap">
+            <div className="ExampleCharacterTitle col-sm">Example Mages</div>
+            <ExampleCharacter name='Thola Falone' heroId={810} contentId={'Female_Mage_79_nov28'} />
+            <ExampleCharacter name='Marta Fezim' heroId={798} contentId={'Female_Mage_62_nov29'} />
+            <ExampleCharacter name='Zasheir Storm' heroId={684} contentId={'Male_Mage_76_nov25'} />
+        </div>
         <div className="CClass-container d-flex flex-wrap">
           <div className="CClass-images">
             <img src="/images/web/classes/cleric-1.jpg"
@@ -137,6 +166,12 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
         A fierce dedication to their beliefs drives within them an extraordinary determination of force to be unleashed on those that would challenge them.  Their training is not in the blade but rather, the hearts of men.
             </div>
           </div>
+        </div>
+        <div className="ExampleChracters d-flex flex-wrap">
+            <ExampleCharacter name='Arveene Sepret' heroId={952} contentId={'Female_Cleric_32_dec20b1'} />
+            <ExampleCharacter name='Geth Jassan' heroId={973} contentId={'Male_Cleric_27_dec20b1'} />
+            <ExampleCharacter name='Ander Mori' heroId={940} contentId={'Female_Cleric_11_dec20b2'} />
+            <div className="ExampleCharacterTitle col-sm">Example Clerics</div>
         </div>
         <div style={{height:60}}/>
         {separatorBg('bg', <span className='SeparatorText'>Heroes become more valuable as they gain experience with every battle</span>)}
@@ -326,7 +361,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       margin-bottom:60px;
     }
     .FAQ-questions {
-      max-width:100%;
+      max-width:100vw;
       width: 956px;
       margin: 73px 0 81px 0;
       font-family: Avenir;
@@ -355,6 +390,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #fff;
     }
     .Team-with {
+      max-width:100%;
       width: 649px;
       height: 14px;
       margin: 81px 0 25px 0;
@@ -400,6 +436,26 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       text-align: center;
       color: #fff;
     }
+
+    @media only screen and (max-device-width: 800px) {
+      .Team-title{
+        font-size: 2rem;
+        margin-bottom:40px;
+      }
+      .Member {
+        width:120px;
+        height:150px;
+      }
+     .Member-headshot img {
+        border-radius: 100%;
+        width: 100px;
+      }
+
+      .Member-info {
+        font-size: 1rem;
+        margin-top:10px;
+      }
+    }
     .Roadmap-line{
       width: 1px;
       height: 91px;
@@ -408,6 +464,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       background-color: #fff;
     }
     .Roadmap-section{
+      max-width:100vw;
       width: 500px;
       margin: 23px 0 0px;
       font-family: Avenir;
@@ -434,6 +491,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #fff;
     }
     .Equipment-sub{
+      max-width:100%;
       width: 600px;
       margin: 21px 0 10px 0;
       font-family: Avenir;
@@ -518,6 +576,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       width:400px;
     }
     .CClass-container {
+       justify-content:center;
        margin: 69px 0 6px 0;
        gap: 40px;
        width: 100%;
@@ -546,13 +605,19 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     .blades-of-valor-site {
     }
     .video {
-      max-height:720px;
-      height:100vh;
-      max-width:1280px;
       width:100vw;
-      margin: 90px 0px 150px 0px;
-      border: solid 1px #979797;
-      background-color: #d8d8d8;
+      max-width:1280px;
+      margin: 90px 0px 20px 0px;
+      height:0;
+      padding-bottom: 56.25%;
+      position:relative;
+    }
+    .video iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
     }
     .NFT-headline{
       max-width:100%;
@@ -577,7 +642,6 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     .NFT-start{
       max-width:100%;
       width: 1191px;
-      height: 40px;
       margin: 45px 0px 43px 0px;
       font-family: Avenir;
       font-size: 1.75rem;
@@ -609,6 +673,19 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       letter-spacing: normal;
       text-align: center;
       color: #fff;
+    }
+    @media only screen and (max-device-width: 800px) {
+      .NFT-headline{
+        font-size:2rem;
+        margin: 32px 0px 10px 0px;
+      }
+      .NFT-earn{
+        margin: 10px 0px 25px 0px;
+      }
+      .NFT-start{
+        margin: 25px 0px 23px 0px;
+        font-size:1.5rem;
+      }
     }
     .Stake-your-hero-pre{
       max-width:100%;
@@ -679,7 +756,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       background-color: #000;
       min-height: none;
       height:100%;
-      overflow:auto;
+      overflow:hidden;
       font-family: Avenir;
     }
    `}</style>
