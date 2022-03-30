@@ -70,8 +70,10 @@ function HomePage() {
       </div>
     </div>
       <div className="contents d-flex flex-column align-items-center blades-of-valor-site">
-        <div className="video">
-          <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Meh1PlGYzI0?controls=2&rel=0&showinfo=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div className="videoContainer">
+          <div className="video">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Meh1PlGYzI0?controls=2&rel=0&showinfo=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+          </div>
         </div>
         <div className="Character-Classes">
           Character Classes
@@ -104,10 +106,10 @@ function HomePage() {
         <div className="CClass-container d-flex flex-wrap">
           <div className="CClass-images">
             <img src="/images/web/classes/rogue-1.jpg"
-                 srcSet="/images/web/classes/rogue-1@2x.jpg 2x, /images/web/classes/rouge-1@3x.jpg 3x"
+                 srcSet="/images/web/classes/rogue-1@2x.jpg 2x, /images/web/classes/rogue-1@3x.jpg 3x"
                className="CClass-Image1" width="100%" />
             <img src="/images/web/classes/rogue-2.jpg"
-                 srcSet="/images/web/classes/rogue-2@2x.jpg 2x, /images/web/classes/rouge-2@3x.jpg 3x"
+                 srcSet="/images/web/classes/rogue-2@2x.jpg 2x, /images/web/classes/rogue-2@3x.jpg 3x"
                className="CClass-Image1" width="100%" />
           </div>
           <div className="CClass-info">
@@ -375,7 +377,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #fff;
     }
     .FAQ-title {
-      max-width:100%;
+      max-width:100vw;
       width: 818px;
       height: 40px;
       margin: 132px 0 73px 0;
@@ -390,7 +392,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #fff;
     }
     .Team-with {
-      max-width:100%;
+      max-width:100vw;
       width: 649px;
       height: 14px;
       margin: 81px 0 25px 0;
@@ -507,7 +509,6 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     .Equipment-description{
       max-width:100%;
       width: 800px;
-      height: 40px;
       margin: 21px 0 36px 0;
       font-family: Avenir;
       font-size: 1.75rem;
@@ -520,7 +521,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #3d3c3d;
     }
     .Equipment-title{
-      max-width:100%;
+      max-width:100vw;
       width: 818px;
       height: 40px;
       margin: 0 287px 31px 261px;
@@ -573,6 +574,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
       color: #fff;
     }
     .CClass-info {
+      max-width:100vw;
       width:400px;
     }
     .CClass-container {
@@ -582,7 +584,7 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
        width: 100%;
     }
     .Character-Classes {
-      max-width:100%;
+      max-width:100vw;
       width: 818px;
       margin: 150px 0 92px 0;
       font-family: Avenir;
@@ -604,9 +606,11 @@ The masters of forces both seen and unseen, mages weave the forces of nature int
     }
     .blades-of-valor-site {
     }
-    .video {
-      width:100vw;
+    .videoContainer {
       max-width:1280px;
+      width:100vw;
+    }
+    .video {
       margin: 90px 0px 20px 0px;
       height:0;
       padding-bottom: 56.25%;
