@@ -64,6 +64,7 @@ body {
   transform: translateY(-50%);
   position:absolute;
   padding:10px;
+  text-align:center;
 }
 
 .SeparatorText{
