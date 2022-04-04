@@ -306,6 +306,9 @@ function HomePage() {
 
             <div className="question">How do I get keys to mint free hero NFTs?</div>
             <div className="answer">Every holder of the 888 Inner Circle Yellow Realm NFT is automatically eligible along with every wallet that holds at least 10,000 OGN. You can buy an 888 NFT on OpenSea or get OGN from a variety of top exchanges.</div>
+            
+            <div className="question">Am I automatically eligible if I have OGN staked or held on an exchange?</div>
+            <div className="answer">No, OGN or the 888 NFT must be held in the wallet that you plan to use to mint your hero NFTs. We may use a snapshot or require that the tokens be held in the wallet at the time of minting. Watch for an announcement as we get closer to the launch.</div>
             {/*
               <div className="question">How many free hero NFTs can I claim?</div>
               <div className="answer">Each wallet is eligible to mint up to five hero NFTs (just pay gas).</div>
