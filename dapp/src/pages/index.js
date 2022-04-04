@@ -112,7 +112,7 @@ function HomePage() {
               className="CClass-Image1" width="100%" />
           </div>
         </div>
-        <div className="ExampleChracters d-flex flex-wrap">
+        <div className="ExampleChracters text-center text-md-left d-md-flex flex-wrap">
           <div className="ExampleCharacterTitle col-sm">Example Fighters</div>
           <ExampleCharacter name='Jalana Marsk' heroId={743} contentId={'Female_Fighter_83_nov29'} />
           <ExampleCharacter name='Anton Uuthrakt' heroId={853} contentId={'Male_Fighter_51_nov29'} />
@@ -134,7 +134,7 @@ function HomePage() {
             </div>
           </div>
         </div>
-        <div className="ExampleChracters d-flex flex-wrap">
+        <div className="ExampleChracters text-center text-md-left d-md-flex flex-wrap">
           <ExampleCharacter name='Jun Chien' heroId={990} contentId={'Male_Rogue_3_dec20b2'} />
           <ExampleCharacter name='Umara Marivaldi' heroId={966} contentId={'Female_Rogue_8_dec20b1'} />
           <ExampleCharacter name='Grim Fargo' heroId={986} contentId={'Male_Rogue_2_dec20b2'} />
@@ -158,7 +158,7 @@ function HomePage() {
               className="CClass-Image1" width="100%" />
           </div>
         </div>
-        <div className="ExampleChracters d-flex flex-wrap">
+        <div className="ExampleChracters text-center text-md-left d-md-flex flex-wrap">
           <div className="ExampleCharacterTitle col-sm">Example Mages</div>
           <ExampleCharacter name='Thola Falone' heroId={810} contentId={'Female_Mage_79_nov28'} />
           <ExampleCharacter name='Marta Fezim' heroId={798} contentId={'Female_Mage_62_nov29'} />
@@ -180,7 +180,7 @@ function HomePage() {
             </div>
           </div>
         </div>
-        <div className="ExampleChracters d-flex flex-wrap">
+        <div className="ExampleChracters text-center text-md-left d-md-flex flex-wrap">
           <ExampleCharacter name='Arveene Sepret' heroId={952} contentId={'Female_Cleric_32_dec20b1'} />
           <ExampleCharacter name='Geth Jassan' heroId={973} contentId={'Male_Cleric_27_dec20b1'} />
           <ExampleCharacter name='Ander Mori' heroId={940} contentId={'Female_Cleric_11_dec20b2'} />
