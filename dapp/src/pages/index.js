@@ -234,7 +234,7 @@ function HomePage() {
           <h2>Roadmap</h2>
           <div className="Roadmap-period">
             <h3>Q1 2022</h3>
-            <p>2,000 heroes are algorithmically generated</p>
+            <p>5,000 heroes are algorithmically generated</p>
             <p>Preview in Unity</p>
             <p>Heroes and animation rendered for battle in Unreal Engine</p>
             <p>Fair and free minting experience is perfected</p>
@@ -318,7 +318,7 @@ function HomePage() {
             <div className="Team d-flex flex-column align-items-center">
               <div className="NFT-headline"><b>Mint</b>, Level up, Gear up, <b>Fight</b></div>
               <div className="NFT-start">
-                  Start with a <b>Free</b> mint for the first generation of 2,000 hero NFTs
+                  Start with a <b>Free</b> mint for the first generation of 5,000 hero NFTs
               </div>
               <a href={DISCORD_URL} target="_blank"rel="noreferrer noopener">
                 <button className="Mint-button">
