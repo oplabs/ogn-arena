@@ -38,62 +38,63 @@ body {
     background-repeat: repeat;
     font-size:16px;
 }
+
+section {
+  width: 100%;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+  opacity: 0.8;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
 .eqCell{
    width: 265px;
    height: 265px;
-   margin:5px 0 5px 0;
+   margin: 5px auto;
    padding: 0px 10px 0 10px;
    background-color: #f2f2f2;
-   position:relative;
 }
 
 .eqCell img {
    max-width:244px;
    max-height:244px;
-   position:absolute;
-   top:50%;
-   -ms-transform: translateY(-50%);
-   transform: translateY(-50%);
 }
 
-.SeparatorBgContent{
-  left:0;
-  width:100%;
-  top:50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  position:absolute;
-  padding:10px;
-  text-align:center;
-}
-
-.SeparatorText{
-  width:100%;
-  height:100%;
+.separator {
+  padding: 10px;
   font-family: Avenir;
   font-size: 38px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: center;
-  color: #fff;
-  top:45%;
-  left:0;
-  margin:20px;
+  position: relative;
 }
 
-.SeparatorBgImg {
-  object-fit: contain;
-  opacity:0.5;
-  width:100vw;
-  min-width:800px;
+.separator:before {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  content: '';
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.SeparatorBg{
-  width:100%;
-  position:relative;
+
+.separator .content {
+  position: relative;
 }
+
 .ExampleCharacterTitle{
   margin-top:40px;
   width:80px;
