@@ -3,6 +3,16 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/discord',
+        destination: 'https://discord.gg/bov',
+        permanent: false,
+        basePath: false
+      },
+    ]
+  },
   /* config options here */
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.plugins.push(new webpack.IgnorePlugin(/^pg-native$/));
