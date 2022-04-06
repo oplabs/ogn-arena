@@ -275,7 +275,7 @@ def generate_dna_from_attrs(attrs_path):
                         unknown_items += 1
                     else:
                         # TODO stderr
-                        print('NO MATCH: %s' % line)
+                        raise Exception('NO MATCH: %s' % line)
 
         # default eye color may not appear in file so encode after fully parsing:
         dna += ATTR_NAME_TO_KEY[EYE_COLOR] + str(EYE_COLOR_LIST[eye_color])
@@ -288,6 +288,10 @@ if __name__ == '__main__':
     print('Generating %s files for %s' % (DNA_FN, WORKDIR))
     for root, dirs, files in os.walk(WORKDIR):
         if ATTRS_FN in files and DNA_FN not in files:
-            hero_dna = generate_dna_from_attrs(os.path.join(root, ATTRS_FN))
-            with open(os.path.join(root, DNA_FN), 'w') as dna_fh:
-                dna_fh.write(hero_dna)
+            try:
+              hero_dna = generate_dna_from_attrs(os.path.join(root, ATTRS_FN))
+              with open(os.path.join(root, DNA_FN), 'w') as dna_fh:
+                  dna_fh.write(hero_dna)
+            except Exception as err:
+              print ("Error encountered for: ", root)
+              print (err)
