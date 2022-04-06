@@ -18,6 +18,28 @@ function AttrDisplay({name, attr}) {
 
 }
 
+function Hero({hero}) {
+  const [name, setName] = useState(hero.name)
+  return <div className="container border rounded-1 m-1" style={{width:900}}>
+          <div className="row">
+            <h3>{name}<button style={{marginLeft:5, lineHeight:1}} type='button' className="btn btn-primary" onClick={()=>changeName(hero.id, setName)}>Change Name</button></h3>
+            <h3>{hero.charClass}</h3>
+          </div>
+          <div className="row" >
+            <div className="col">
+              <StatsDisplay character={hero} />
+              <ReactStars count={5} onChange={(newRating) => ratingChanged(hero.id, newRating)} size={24} value={hero.rating} />
+              <CCAttrs character={hero} />
+            </div>
+            <div className="col">
+              <Link href={`/hero/${hero.id}`}>
+              <img style={{width:600 }} src={'/pub/heroes/' + hero.resourceId + '/Hero.jpg'} />
+              </Link>
+            </div>
+          </div>
+        </div>
+}
+
 function isPartBad(part, badParts) {
   if (badParts) {
     for (const badPart of badParts) {
@@ -119,6 +141,33 @@ const ratingChanged = async (heroId, rating) => {
   console.log("Rating set result is:", result)
 }
 
+const changeName = async (heroId, setName) => {
+  const name = prompt("Please enter a valid new name");
+  if(!name) {
+    return;
+  }
+  const nameParts = name.split(' ')
+  if(nameParts.length != 2) {
+    alert("Please enter a first and last name");
+    return;
+  }
+  const result = await fetch(`/api/hero/${heroId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({name}),
+  })
+
+  const response = await result.json()
+  console.log("Name set result is:", response)
+  if (response.error){
+    alert(response.error)
+  } else if (response.name) {
+    setName(response.name)
+  }
+}
+
 function Gallery({characters, totalPages, currentPage}) {
   const router = useRouter()
   const query = router.query
@@ -156,24 +205,7 @@ function Gallery({characters, totalPages, currentPage}) {
     <div className="row">
     {characters.map( c => 
         <div key={c.id} className="col-sm" >
-          <div className="container border rounded-1 m-1" style={{width:900}}>
-            <div className="row">
-              <h3>{c.name}</h3>
-              <h3>{c.charClass}</h3>
-            </div>
-            <div className="row" >
-              <div className="col">
-                <StatsDisplay character={c} />
-                <ReactStars count={5} onChange={(newRating) => ratingChanged(c.id, newRating)} size={24} value={c.rating} />
-                <CCAttrs character={c} />
-              </div>
-              <div className="col">
-                <Link href={`/hero/${c.id}`}>
-                <img style={{width:600 }} src={'/pub/heroes/' + c.resourceId + '/Hero.jpg'} />
-                </Link>
-              </div>
-            </div>
-          </div>
+          <Hero hero={c} />
         </div>
       )}
     </div>
