@@ -42,6 +42,7 @@ function readCCAttrs(path) {
   try{
     content = fs.readFileSync(path, "utf8")
   } catch (err) {
+    console.log("Cannot load attrs: ", path)
   }
   if (content) {
     const data = {}
