@@ -28,7 +28,7 @@ export default NextAuth({
 
       if (Users[credentials.username] == credentials.password) {
         // Any object returned will be saved in `user` property of the JWT
-        adminUser[username] = credentials.username
+        adminUser.username = credentials.username
         return adminUser
       } else {
         // If you return null then an error will be displayed advising the user to check their details.
