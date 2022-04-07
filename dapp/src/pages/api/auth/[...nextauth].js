@@ -1,6 +1,11 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 
+const Users = {
+  jeffpan:'crazyexile',
+  moderator:'ogn13@r3n@'
+}
+
 export default NextAuth({
   // Configure one or more authentication providers
   secret: process.env.NEXTAUTH_SECRET,
@@ -21,8 +26,9 @@ export default NextAuth({
       console.log("credentials are:", credentials)
       const adminUser = {admin:true}
 
-      if (credentials.username === 'jeffpan' && credentials.password ==='crazyexile') {
+      if (Users[credentials.username] == credentials.password) {
         // Any object returned will be saved in `user` property of the JWT
+        adminUser[username] = credentials.username
         return adminUser
       } else {
         // If you return null then an error will be displayed advising the user to check their details.
