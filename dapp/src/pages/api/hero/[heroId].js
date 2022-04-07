@@ -17,6 +17,13 @@ export default async function handler(req, res) {
   if(req.method == "POST") {
     const hero = await Hero.findByPk(heroId)
 
+    if ('noMint' in req.body) {
+      hero.noMint = req.body['noMint']
+      await hero.save()
+      res.json({ updated: true, noMint:hero.noMint })
+      return
+    }
+
     if ('name' in req.body) {
       const name = req.body['name']
       const parts = name.split(' ')
@@ -41,7 +48,7 @@ export default async function handler(req, res) {
     if ('rating' in req.body) {
       hero.rating = req.body['rating'] 
       await hero.save()
-      res.json({ updated: true })
+      res.json({ updated: true, rating:hero.rating })
       return
     }
     if ('badParts' in req.body) {

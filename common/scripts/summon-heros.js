@@ -29,6 +29,14 @@ function reserveStats(rolls, priority, attrs) {
   }
 }
 
+function readDNA(path) {
+  try {
+    return fs.readFileSync(path, "utf8")
+  } catch (err) {
+    return null
+  }
+}
+
 function readCCAttrs(path) {
   const content = fs.readFileSync(path, "utf8")
   if (content) {
@@ -73,12 +81,13 @@ const summon = async () => {
 
   for(const d of dirs) {
     if (["index.html","TemplateData"].includes(d)) {
- 	continue;
+      continue;
     } else if (d) {
       const id = d;
       console.log('Summoning...', id);
 
       const attrsFile = path.join(resourceDir, d, "attrs.txt");
+      const dnaFile = path.join(resourceDir, d, "dna.txt");
 
       const existing = await Hero.findOne({where:{resourceId:id}})
       if(existing)
@@ -87,6 +96,14 @@ const summon = async () => {
           const ccAttrs = readCCAttrs(attrsFile)
           if (ccAttrs) {
             existing.ccAttrs = ccAttrs;
+            await existing.save();
+          }
+        }
+
+        if(!existing.dna) {
+          const dna = readDNA(dnaFile)
+          if(dna) {
+            existing.dna = dna;
             await existing.save();
           }
         }
@@ -112,12 +129,13 @@ const summon = async () => {
       } while(await Hero.findOne({where:{name:data.name}}))
 
       const ccAttrs = readCCAttrs(attrsFile)
+      const dna = readDNA(dnaFile)
       const character = data.formattedData;
       character.attrs = attrs;
       console.log("Character: ", character);
       console.log("totalAttrs:", total)
       const {name,firstName, lastName, race} = character;
-      await Hero.create({charClass, ccAttrs, name, firstName, lastName, gender, race, resourceId:id, ...attrs});
+      await Hero.create({charClass, ccAttrs, name, firstName, lastName, gender, race, resourceId:id, ...attrs, dna});
     }
   }
 

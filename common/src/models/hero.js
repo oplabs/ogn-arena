@@ -34,7 +34,10 @@ module.exports = (sequelize, DataTypes) => {
     rating: DataTypes.INTEGER,
     ccAttrs: DataTypes.JSONB,
     badParts: DataTypes.JSONB,
-    sortOrder: DataTypes.INTEGER
+    sortOrder: DataTypes.INTEGER,
+    tokenId: DataTypes.STRING,
+    dna: DataTypes.STRING,
+    noMint: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Hero',

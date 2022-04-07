@@ -20,10 +20,13 @@ function AttrDisplay({name, attr}) {
 
 function Hero({hero}) {
   const [name, setName] = useState(hero.name)
+  const [noMint, setNoMint] = useState(hero.noMint)
   return <div className="container border rounded-1 m-1" style={{width:900}}>
           <div className="row">
             <h3>{name}<button style={{marginLeft:5, lineHeight:1}} type='button' className="btn btn-primary" onClick={()=>changeName(hero.id, setName)}>Change Name</button></h3>
             <h3>{hero.charClass}</h3>
+            {hero.dna &&
+            <div>{!noMint ? <span style={{color:'green', fontWeight:'bold', fontSize:18}}>Mintable</span>:<span style={{color:'red', fontWeight:'bold', fontSize:18}}>No Mint</span>} <button style={{marginLeft:5, marginBottom:5, lineHeight:1}} type='button' className="btn btn-primary" onClick={()=>toggleMint(hero.id, noMint, setNoMint)}>{noMint ? 'Enable': 'Disable'}</button></div>}
           </div>
           <div className="row" >
             <div className="col">
@@ -167,6 +170,24 @@ const changeName = async (heroId, setName) => {
     setName(response.name)
   }
 }
+
+const toggleMint = async (heroId, noMint, setNoMint) => {
+  const result = await fetch(`/api/hero/${heroId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({noMint:!noMint}),
+  })
+
+  const response = await result.json()
+  if (response.error){
+    alert(response.error)
+  } else if('noMint' in response) {
+    setNoMint(response.noMint)
+  }
+}
+
 
 function Gallery({characters, totalPages, currentPage}) {
   const router = useRouter()
