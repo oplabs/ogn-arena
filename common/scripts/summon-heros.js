@@ -38,7 +38,11 @@ function readDNA(path) {
 }
 
 function readCCAttrs(path) {
-  const content = fs.readFileSync(path, "utf8")
+  let content
+  try{
+    content = fs.readFileSync(path, "utf8")
+  } catch (err) {
+  }
   if (content) {
     const data = {}
     for (const kv of content.split(/\r?\n/)) {
