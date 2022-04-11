@@ -279,8 +279,16 @@ def generate_chargen(dna, searchpath='./'):
     loader = jinja2.FileSystemLoader(searchpath=searchpath)
     env = jinja2.Environment(loader=loader)
     template = env.get_template(CHARGEN_TPL_FN)
-    # todo WIP
-    # template.render(class_str=)
+    attrs = attrs_from_dna(dna)
+    return template.render(class_str=attrs[CLASS],
+                           class_int=CLASS_LIST[attrs[CLASS]],
+                           gender_str=attrs[GENDER],
+                           skin_val=attrs[SKIN],
+                           beard_str=attrs.get(BEARD),
+                           body_morphs=str(attrs[BODY_MORPH]),
+                           head_morphs=str(attrs[HEAD_MORPH]),
+                           eye_color_str=attrs[EYE_COLOR],
+                           skin_brightness=attrs[SKIN_BRIGHTNESS])
 
 
 # DNA sequence should be ordered to assist uniqueness:
