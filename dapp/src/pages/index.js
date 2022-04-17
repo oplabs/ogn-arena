@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const DISCORD_URL = 'https://discord.gg/mmqmvp8q';
+const DISCORD_URL = 'https://discord.gg/bov';
 const ORIGIN_URL = 'https://originprotocol.com';
 const PRIVACY_URL = 'https://originprotocol.com/privacy';
 const TERMS_URL = 'https://originprotocol.com/terms';

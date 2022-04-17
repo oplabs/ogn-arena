@@ -47,6 +47,9 @@ function readCCAttrs(path) {
   if (content) {
     const data = {}
     for (const kv of content.split(/\r?\n/)) {
+      if(!kv){
+        continue
+      }
       const [k, v] = kv.split(':')
       if(!data[k]) {
         data[k] = v.trim()
