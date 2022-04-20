@@ -389,6 +389,8 @@ def generate_dna_from_attrs(attrs_path):
     dna = ''
     with open(attrs_path, 'r') as attr_fh:
         lines = [line.strip() for line in attr_fh.readlines()]
+        if len(lines) == 0:
+            raise Exception('Empty attrs file')
 
         # default eye color is left out of metadata so represent it here:
         eye_color = 'Blue'
@@ -456,8 +458,11 @@ def generate_dna_from_attrs(attrs_path):
 if __name__ == '__main__':
     WORKDIR = sys.argv[1] if len(sys.argv) > 1 else os.path.curdir
     print('Generating %s files for %s' % (DNA_FN, WORKDIR))
+    REGEN_DNA = (sys.argv[2] == "regen") if len(sys.argv) == 3 else False
+    if REGEN_DNA:
+        print('Overwriting existing dna.')
     for root, dirs, files in os.walk(WORKDIR):
-        if ATTRS_FN in files and DNA_FN not in files:
+        if ATTRS_FN in files and (REGEN_DNA or DNA_FN not in files):
             try:
               hero_dna = generate_dna_from_attrs(os.path.join(root, ATTRS_FN))
               with open(os.path.join(root, DNA_FN), 'w') as dna_fh:
