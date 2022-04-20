@@ -1,6 +1,11 @@
 # ogn-arena
 
 
+## Deployments Guide
+
+# https://docs.google.com/document/d/1LizBXVcPL3JcDms5nw9PvixuSnSHV_zReMjua8H1uSI
+
+
 ## First time setup
 
 # install postgres and start postgres server
