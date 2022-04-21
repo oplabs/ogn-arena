@@ -7,12 +7,12 @@ SetMouseDelay, 25
 
 SetTitleMatchMode, RegEx
 
-NUM_TO_GENERATE := 200
+NUM_TO_GENERATE := 9999
 SAVE_CCPROJECT := 0
 SAVE_FBX := 1
 
-PROJECT_DIR := "C:\Users\codex\Downloads\"
-BATCH_DIR := "C:\Users\codex\Documents\chargen\generated_" . A_YYYY . A_MM . A_DD . A_Hour . A_Min . A_Sec . "\"
+PROJECT_DIR := "C:\Users\Administrator\Downloads\BladesOfValorAWS\"
+BATCH_DIR := "D:\bov_chargen_" . A_YYYY . A_MM . A_DD . A_Hour . A_Min . A_Sec . "\"
 MOTIONS_DIR := "C:\Users\Public\Documents\Reallusion\Template\Character Creator 3 Template\Motion\"
 
 MAIN_RE := "^Character Creator 3.*\.ccProject"
@@ -166,10 +166,9 @@ _set_morph(name, value) {
   }
 
   set_param(MORPH_SEARCH, name)
-  Sleep, 50
+  Sleep, 100
   set_param(morph_coords, value)
   Sleep, 200 ; let the UI catch up after a morph change
-  attrs_fh.write(name . ": " . value . "`n")
 }
 
 set_morph(name, min:=-100, max:=100) {
@@ -250,7 +249,7 @@ set_html_hair_color(color) {
 
 open_adjust_color_window() {
     Click, Right, 1529, 347
-    sleep, 500 ; long sleep required after that right click
+    sleep, 1000 ; long sleep required after that right click ; xxx doubled for aws
     Click, 1582, 493
     WinWaitActive, Adjust Color
 }
@@ -336,8 +335,8 @@ set_beard(beard_str) {
     return 1
 }
 
-WinActivate, %MAIN_RE%
-WinWaitActive, %MAIN_RE%
+; WinWaitActive, %MAIN_RE%
+WinActivate %MAIN_RE%
 
 Send, ^2 ; set default workspace for reliable clicks
 Sleep, 50
@@ -364,7 +363,7 @@ while num_generated <= NUM_TO_GENERATE
     }
 
     ; Class
-    Random class_bool, 2, 3 ; xxx : only generating cleric and rogues
+    Random class_bool, 0, 3
     if (class_bool == 0) {
         class_str := CLASS_FIGHTER
         motions := ["Studio Mocap-Sword & Shield Moves\Idle\Idle_Battle.rlmotion"
@@ -628,11 +627,13 @@ while num_generated <= NUM_TO_GENERATE
     long_click(MORPH_SCROLL_UP)
     Click, %MORPH_BODY%
     for morph, morph_val in body_morphs {
+        attrs_fh.write("BodyMorph: " . morph . ": " . morph_val . "`n")
         _set_morph(morph, morph_val)
     }
 
     Click, %MORPH_HEAD%
     for morph, morph_val in head_morphs {
+        attrs_fh.write("HeadMorph: " . morph . ": " . morph_val . "`n")
         _set_morph(morph, morph_val)
     }
 
@@ -762,8 +763,8 @@ while num_generated <= NUM_TO_GENERATE
     WinWaitActive, Save As
     clip_send(hero_dir . "Hero.jpg")
 
-    WinWaitActive, Photos
-    WinClose, Photos
+    WinWaitActive, Hero.jpg - Paint
+    WinClose, Hero.jpg - Paint
 
     WinActivate, %MAIN_RE%
 
@@ -798,8 +799,8 @@ while num_generated <= NUM_TO_GENERATE
     WinWaitActive, Save As
     clip_send(hero_dir . "Face.jpg")
 
-    WinWaitActive, Photos
-    WinClose, Photos
+    WinWaitActive, Face.jpg - Paint
+    WinClose, Face.jpg - Paint
 
     WinActivate, %MAIN_RE%
 
@@ -845,15 +846,15 @@ while num_generated <= NUM_TO_GENERATE
 
         ; set motions if we rolled a different class last time
         if (last_class_str != class_str) {
-            Click, 705, 702 ; scroll
-            Click, 34, 398 ; Custom radio selector
-            Click, 324, 536 ; clear all
+            ; Click, 705, 702 ; scroll (no longer necessary)
+            Click, 43, 370 ; Custom radio selector
+            Click, 333, 489 ; clear all
             for index, motion in motions {
                 clicked_item := 0
                 while not clicked_item {
                     WinActivate, %EXPORT_FBX_RE%
                     WinWaitActive, %EXPORT_FBX_RE%,, 2
-                    Click, 250, 539
+                    Click, 266, 491 ; Open File
                     WinActivate, Open
                     WinWaitActive, Open,, 2
                     if not ErrorLevel {
@@ -867,11 +868,12 @@ while num_generated <= NUM_TO_GENERATE
 
         WinActivate, %EXPORT_FBX_RE%
         WinWaitActive, %EXPORT_FBX_RE%
-        Click, 215, 773
+        Click, 187, 850 ; Export
 
         WinWaitActive, Character Creator 3
         WinActivate, Character Creator 3
-        Click, 109, 254
+        ; Click, 109, 254; OK Confirmation
+        Send {Enter}
 
         WinWaitActive, Save As
         WinActivate, Save As
