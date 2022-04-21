@@ -424,7 +424,7 @@ if BEARD_STR {
     attrs_fh.write("BeardEnd: " . beard_end . "`n")
 }
 if (SKIN_BRIGHTNESS != 0) {
-    process_materials.push(["Std_Skin_Head", "Std_Skin_Arm", "Std_Skin_Leg", "Std_Skin_Body"]*)
+    process_materials.push(["Std_Skin_Head", "Std_Skin_Arm", "Std_Skin_Leg", "Std_Skin_Body", "Std_Nails"]*)
     attrs_fh.write("SkinBrightness: " . skin_brightness . "`n")
 }
 
