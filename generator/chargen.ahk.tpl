@@ -452,7 +452,7 @@ while (process_materials.MaxIndex() > 0 and process_count < process_count_limit)
                 materials_scroll_top()
             }
         }
-        if InStr(Clipboard, "Std_Skin_") {
+        if (InStr(Clipboard, "Std_Skin_") or Clipboard == "Std_Nails") {
             Send, y
 
             open_adjust_color_window()

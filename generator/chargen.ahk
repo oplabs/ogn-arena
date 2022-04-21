@@ -694,7 +694,7 @@ while num_generated <= NUM_TO_GENERATE
                     materials_scroll_top()
                 }
             }
-            if InStr(Clipboard, "Std_Skin_") {
+            if (InStr(Clipboard, "Std_Skin_") or Clipboard == "Std_Nails") {
                 Send, y
 
                 open_adjust_color_window()
