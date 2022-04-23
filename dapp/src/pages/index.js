@@ -4,6 +4,7 @@ const DISCORD_URL = 'https://discord.gg/bov';
 const ORIGIN_URL = 'https://originprotocol.com';
 const PRIVACY_URL = 'https://originprotocol.com/privacy';
 const TERMS_URL = 'https://originprotocol.com/terms';
+const TWITTER_URL = 'https://twitter.com/bladesofvalor';
 
 function HomePage() {
   const eqCell = (eqItem) => {
@@ -45,21 +46,24 @@ function HomePage() {
   return <div className="Full">
     <main className="landing-page">
       <section className="head">
-        <div className="navbar-holder">
-          <nav className="navbar navbar-expand-lg navbar-origin navbar-dark">
-            <div>
-              <a className="navbar-brand" href="/">
-                <div className="logo-container">
-                  <img src="/images/web/logo/logo.png"
-                    srcSet="/images/web/logo/logo@2x.png 2x, /images/web/logo/logo@3x.png 3x"
-                    className="bov-logo"
-                    alt="Blades of Valor Logo" />
-                </div>
-              </a>
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+          <a className="navbar-brand" href="/">
+            <div className="logo-container">
+              <img src="/images/web/logo/logo.png"
+                srcSet="/images/web/logo/logo@2x.png 2x, /images/web/logo/logo@3x.png 3x"
+                className="bov-logo"
+                alt="Blades of Valor Logo" />
             </div>
-            {/*<span className="Marketplace">Marketplace</span>*/}
-          </nav>
-        </div>
+          </a>
+          <ul class="navbar-nav flex-row">
+            <li class="nav-item">
+              <a class="nav-link text-white p-2" href={DISCORD_URL} target="_blank" rel="noopener noreferrer">Discord</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white p-2" href={TWITTER_URL} target="_blank" rel="noopener noreferrer">Twitter</a>
+            </li>
+          </ul>
+        </nav>
         <div className="d-flex flex-column justify-content-center align-items-center">
           <div className="large-logo">
             <img src="/images/web/large-logo/logo.png"
