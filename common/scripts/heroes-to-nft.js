@@ -1,4 +1,4 @@
-const {Hero} = require('common')
+const {Hero, Sequelize} = require('common')
 const path = require('path')
 const _ = require('lodash')
 const fs = require('fs')
@@ -13,7 +13,7 @@ const nftCreator = async () => {
 
   console.log(`Converting ${numHeroes} heros to NFTs...`)
   
-  const heroes = await Hero.findAll({order:[['id', 'DESC']], limit:numHeroes});
+  const heroes = await Hero.findAll({where:{dna:{[Sequelize.Op.not]:null}},order:[['id', 'DESC']], limit:numHeroes});
 
   const nfts = []
 
@@ -40,13 +40,12 @@ const nftCreator = async () => {
     attributes.push({trait_type:'Wisdom', value:hero.wis})
     attributes.push({trait_type:'Charisma', value:hero.cha})
 
-    const DNA = '<Place Holder>'
+    const DNA = hero.dna
 
     attributes.push({trait_type:'DNA', value:DNA})
-    attributes.push({trait_type:'HID', value:hero.id})
 
     const data = { attributes }
-    nfts.push({ data, mediaWidth, mediaHeight, media, posterMedia, name, description, timeZone,skipPostProcessing: true })
+    nfts.push({ data, mediaWidth, mediaHeight, media, posterMedia, name, description, timeZone })
   }
   const outFile = 'heroes-nfts.json'
   fs.writeFileSync(outFile, JSON.stringify(nfts))
