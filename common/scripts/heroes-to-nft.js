@@ -4,7 +4,7 @@ const _ = require('lodash')
 const fs = require('fs')
 const sizeOf = require('image-size')
 
-const ROOT_HTTP = `http://bladesofvalor.com`
+const ROOT_HTTP = `https://bladesofvalor.com`
 const HERO_PATH = `/pub/heroes/`
 const RESOURCE_DIRECTORY = process.env.RESOURCE_DIRECTORY
 
