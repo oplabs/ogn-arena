@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Head from 'next/head'
 
 const DISCORD_URL = 'https://discord.gg/bov';
 const ORIGIN_URL = 'https://originprotocol.com';
@@ -13,12 +13,12 @@ function HomePage() {
      </div>
   }
   const ExampleCharacter = ({name, heroId, contentId}) => {
-    return <Link href={`/hero/${heroId}`}>
-        <div className="ExampleCharacter col-sm">
-          <img src={`/pub/heroes/${contentId}/Face.jpg`} className="ExampleCharacterImg"/>
-          <div className="ExampleCharacterName">{name}</div>
+    return <div className="ExampleCharacter col-sm">
+          <a href={`/hero/${heroId}`}>
+            <img src={`/pub/heroes/${contentId}/Face.jpg`} className="ExampleCharacterImg"/>
+            <div className="ExampleCharacterName">{name}</div>
+          </a>
         </div>
-      </Link>
   }
   const separatorBg = (imgName, overlayText) => {
     return <section className="separator">
@@ -44,9 +44,18 @@ function HomePage() {
 
   }
   return <div className="Full">
+    <Head>
+      <meta property="og:title" content="Blades of Valor" />
+      <meta property="og:type" content="website" />
+      <meta property="og:description" content="Mint, Level up, Gear up, Fight" />
+      <meta property="og:image" content="https://bladesofvalor.com/images/fire-logo.jpg" />
+      <meta property="og:url" content="https://bladesofvalor.com" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="og:site_name" content="Blades of Valor website" />
+    </Head>
     <main className="landing-page">
       <section className="head">
-        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+        <nav className="navbar navbar-expand-lg navbar-dark justify-content-between">
           <a className="navbar-brand" href="/">
             <div className="logo-container">
               <img src="/images/web/logo/logo.png"
@@ -55,12 +64,12 @@ function HomePage() {
                 alt="Blades of Valor Logo" />
             </div>
           </a>
-          <ul class="navbar-nav flex-row">
-            <li class="nav-item">
-              <a class="nav-link text-white p-2" href={DISCORD_URL} target="_blank" rel="noopener noreferrer">Discord</a>
+          <ul className="navbar-nav flex-row">
+            <li className="nav-item">
+              <a className="nav-link text-white p-2" href={DISCORD_URL} target="_blank" rel="noopener noreferrer">Discord</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-white p-2" href={TWITTER_URL} target="_blank" rel="noopener noreferrer">Twitter</a>
+            <li className="nav-item">
+              <a className="nav-link text-white p-2" href={TWITTER_URL} target="_blank" rel="noopener noreferrer">Twitter</a>
             </li>
           </ul>
         </nav>

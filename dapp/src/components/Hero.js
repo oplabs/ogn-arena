@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import StatsDisplay from './StatsDisplay'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
@@ -125,6 +126,16 @@ const Hero = ({hero}) => {
   }, []);
 
   return <div>
+    <Head>
+      <meta property="og:title" content={"Blades of Valor: " + hero.name}  />
+      <meta property="og:type" content="website" />
+      <meta property="og:description" content={`${hero.name}, a level ${hero.level} human ${hero.charClass}.`} />
+      <meta property="og:image" content={`https://bladesofvalor.com/pub/heroes/${hero.resourceId}/Hero.jpg`} />
+      <meta property="og:url" content={hero.tokenId ? `https://bladesofvalor.com/heroNFT/${hero.tokenId}` : `https://bladesofvalor.com/hero/${hero.id}`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="og:site_name" content="Blades of Valor website" />
+    </Head>
+
     {showDetails && <div className="container" style={{padding:0}}>
       <div className="col-md-10 offset-md-1">
         <div className="container border rounded-1 m-1">
