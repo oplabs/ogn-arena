@@ -67,9 +67,10 @@ ATTR_NAME_TO_KEY = {
 }
 
 SKIN_LIST = {
-    'Default': 1,
-    'Clean': 2,
-    'Khulan': 3,
+    'Default': 1, # all-purpose skin
+    'Clean': 2,   # all-purpose skin
+    'Khulan': 3,  # male asian skin
+    'Susan': 4,   # female asian skin
 }
 
 EYE_COLOR_LIST = {
@@ -128,7 +129,9 @@ HEAD_LIST = {
     'Lori': 32,
     'Mei': 33,
     'Anna': 34,
-    'Natasha_Head': 35
+    'Natasha_Head': 35,
+    'Susan_Head': 36,
+    'Sandra_Head': 37,
 }
 
 BODY_HERCULEAN = 'Body HA Male Herculean'
@@ -187,6 +190,19 @@ HAIR_LIST = {
     'Long Hair.cchair': 25,
     'Short Hair.cchair': 26,
     'High Ponytail.cchair': 27,
+
+    'Sweeping Bangs.rlHair': 28,
+    'Buzz Cut.rlHair': 29,
+    'Curly fringe.rlHair': 30,
+    'Long Curls.rlHair': 31,
+    'Medium Afro.rlHair': 32,
+    'Middle Wavy.rlHair': 33,
+    'Side Part.rlHair': 34,
+    'Spiky Quiff.rlHair': 35,
+    'Slick-back Old Style.rlHair': 36,
+    'Slicked Back.rlHair': 37,
+    'Short blowback.rlHair': 38,
+
 }
 
 BEARD_LIST = {
@@ -209,19 +225,21 @@ ATTR_NAME_TO_LIST = {
 
 # Lists used in character generation:
 _MALE_HAIR_LIST = [
-        "Bald", "Top knot long ponytail", "Top knot pigtail braid",
-        "Top knot samurai", "Top knot short ponytail", "Light Skin.cchair",
-        "Bun.ccHair", "Dawn_MorphHair.ccHair", "Dusk_Hair.ccHair",
-        "Long Hair.ccHair", "Short Hair.ccHair"]
+        'Bald', 'Top knot long ponytail', 'Top knot pigtail braid',
+        'Top knot samurai', 'Top knot short ponytail', 'Light Skin.cchair',
+        'Bun.ccHair', 'Dawn_MorphHair.ccHair', 'Dusk_Hair.ccHair',
+        'Short Hair.ccHair', 'Sweeping Bangs.rlHair', 'Buzz Cut.rlHair',
+        'Curly fringe.rlHair', 'Long Curls.rlHair']
 _FEMALE_HAIR_LIST = [
-        "Large bun", "Long wavy ponytail", "Side swept braid",
-        "Side swept ponytail", "Two ponytails", "High Ponytail.ccHair"]
+        'Large bun', 'Long wavy ponytail', 'Side swept braid',
+        'Side swept ponytail', 'Two ponytails', 'High Ponytail.ccHair',
+        'Sweeping Bangs.rlHair', 'Long Curls.rlHair']
 # Bang hairstyle are also female, but seperated for reference purposes:
 _BANGS_HAIR_LIST = [
-        "Curly long ponytail", "Half up short", "Half up straight",
-        "Half up wavy long", "Side bang pigtail braid", "Side part bang_mid",
-        "Two curly ponytails", "Two high space buns", "Two low space buns",
-        "Two pigtail braids", "Wavy medium ponytail"]
+        'Curly long ponytail', 'Half up short', 'Half up straight',
+        'Half up wavy long', 'Side bang pigtail braid', 'Side part bang_mid',
+        'Two curly ponytails', 'Two high space buns', 'Two low space buns',
+        'Two pigtail braids', 'Wavy medium ponytail']
 _FEMALE_HAIR_LIST += _BANGS_HAIR_LIST
 # Bangs don't work well with these heads
 _BANGS_BANNED_HEADS = ['Samantha', 'Magda', 'Flora', 'Ruben']
@@ -458,7 +476,7 @@ def generate_dna_from_attrs(attrs_path):
 if __name__ == '__main__':
     WORKDIR = sys.argv[1] if len(sys.argv) > 1 else os.path.curdir
     print('Generating %s files for %s' % (DNA_FN, WORKDIR))
-    REGEN_DNA = (sys.argv[2] == "regen") if len(sys.argv) == 3 else False
+    REGEN_DNA = (sys.argv[2] == 'regen') if len(sys.argv) == 3 else False
     if REGEN_DNA:
         print('Overwriting existing dna.')
     for root, dirs, files in os.walk(WORKDIR):
@@ -468,5 +486,5 @@ if __name__ == '__main__':
               with open(os.path.join(root, DNA_FN), 'w') as dna_fh:
                   dna_fh.write(hero_dna)
             except Exception as err:
-              print ("Error encountered for: ", root)
+              print ('Error encountered for: ', root)
               print (err)
