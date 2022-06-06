@@ -13,7 +13,7 @@ const nftCreator = async () => {
 
   console.log(`Converting ${numHeroes} heros to NFTs...`)
   
-  const heroes = await Hero.findAll({where:{dna:{[Sequelize.Op.not]:null}},order:[['id', 'DESC']], limit:numHeroes});
+  const heroes = await Hero.findAll({where:{dna:{[Sequelize.Op.not]:null}, noMint:false},order:[['id', 'DESC']], limit:numHeroes});
 
   const nfts = []
 
