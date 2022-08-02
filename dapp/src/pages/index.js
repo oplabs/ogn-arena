@@ -1,5 +1,6 @@
 import Head from 'next/head'
 
+const MINT_URL = 'https://mint.bladesofvalor.com';
 const DISCORD_URL = 'https://discord.gg/bov';
 const ORIGIN_URL = 'https://originprotocol.com';
 const PRIVACY_URL = 'https://originprotocol.com/privacy';
@@ -88,14 +89,13 @@ function HomePage() {
           <div className="NFT-start">
             Start with a <b>Free</b> mint for the first generation of 5,000 hero NFTs
           </div>
-          <a href={DISCORD_URL} target="_blank"rel="noreferrer noopener">
+          <a href={MINT_URL} target="_blank"rel="noreferrer noopener">
             <button className="Mint-button">
-              Join the Discord
+              Mint Now
             </button>
           </a>
           <div className="Stake-your-hero-pre">
             <p>Stake your hero, prepare for each fight, and earn as you gain experience.</p>
-            <p>Every fight is streamed live on Twitch with the same level of video quality shown in our trailer.</p>
             We’re building the next evolution of blockchain games for a global audience.
           </div>
         </div>
@@ -257,7 +257,7 @@ function HomePage() {
           <div className="Roadmap-period">
             <h3>Q2 2022</h3>
             <p>First generation heroes are minted</p>
-            <p>Founding game players claim up to five free heroes</p>
+            <p>Founding game players claim up to twenty(20) free heroes</p>
             <p>Reveal of heroes mapping</p>
             <p>Each hero emerges from provably-fair reveal process</p>
             <p>Intial equipment NFT mint</p>
@@ -266,28 +266,8 @@ function HomePage() {
           </div>
           <div className="Roadmap-line"/>
           <div className="Roadmap-period">
-            <h3>Q3 2022</h3>
-            <p>Alpha game release</p>
-            <p>The first fight will occur live on Twitch during the launch event</p>
-            <p>Competition heats up</p>
-            <p>A second generation of heroes will be available to mint</p>
-            <p>Token release</p>
-            <p>An in-game currency is minted and distributed to early adopters</p>
-          </div>
-          <div className="Roadmap-line"/>
-          <div className="Roadmap-period">
-            <h3>Q4 2022</h3>
-            <p>Production game release</p>
-            <p>The full version of the game will be launched with ongoing fights live on Twitch</p>
-            <p>Expanded NFT ecosystem</p>
-            <p>Additional heroes can be minted and an equipment economy is developed</p>
-            <p>Dungeon crawl mode for party of heroes</p>
-          </div>
-          <div className="Roadmap-line"/>
-          <div className="Roadmap-period">
-            <h3>2023+</h3>
-            <p>Rogue like dungeon and arena map generation</p>
-            <p>More advanced game modes</p>
+            <h3>Q3 2022+</h3>
+            <p>Blades of Valor community builds the future of the game together and builds on top of the initial Hero NFTs</p>
           </div>
         </section>
         {separatorBg('bg-3', 
@@ -318,14 +298,10 @@ function HomePage() {
             <div className="answer">Whitelist spots are granted to members of our Discord server (Trailblazers) who contribute the most to our growing community. However, you don’t need to be on the whitelist if you hold the right keys to access the free mint.</div>
 
             <div className="question">How do I get keys to mint free hero NFTs?</div>
-            <div className="answer">Every holder of the 888 Inner Circle Yellow Realm NFT is automatically eligible along with every wallet that holds at least 10,000 OGN. You can buy an 888 NFT on OpenSea or get OGN from a variety of top exchanges.</div>
+            <div className="answer">Every holder of the 888 Inner Circle Yellow Realm NFT is automatically eligible along with every wallet that holds at least 1,000 OGN. You can buy an 888 NFT on OpenSea or get OGN from a variety of top exchanges.</div>
             
             <div className="question">Am I automatically eligible if I have OGN staked or held on an exchange?</div>
-            <div className="answer">No, OGN or the 888 NFT must be held in the wallet that you plan to use to mint your hero NFTs. We may use a snapshot or require that the tokens be held in the wallet at the time of minting. Watch for an announcement as we get closer to the launch.</div>
-            {/*
-              <div className="question">How many free hero NFTs can I claim?</div>
-              <div className="answer">Each wallet is eligible to mint up to five hero NFTs (just pay gas).</div>
-             */}
+            <div className="answer">No, OGN or the 888 NFT must be held in the wallet that you plan to use to mint your hero NFTs.</div>
             <div className="question">What blockchain are these NFTs minted on?</div>
             <div className="answer">Blades of Valor heroes are ERC-721 NFTs minted on Ethereum Mainnet.</div>
           </div>
@@ -336,9 +312,9 @@ function HomePage() {
               <div className="NFT-start">
                   Start with a <b>Free</b> mint for the first generation of 5,000 hero NFTs
               </div>
-              <a href={DISCORD_URL} target="_blank"rel="noreferrer noopener">
+              <a href={MINT_URL} target="_blank"rel="noreferrer noopener">
                 <button className="Mint-button">
-                  Join the Discord
+		Mint Now
                 </button>
               </a>
             </div>)}
