@@ -58,7 +58,7 @@ Here are all the Services/Server we had planned out. Not all are implemented.
 	* [TODO] output models for unreal engine for battle move display
 	* [TODO] daemonize server to read changes in hero state from BoV smart contract
 3. Mainnet Lookup Server
-	Ensure the correct ownership on mainnet so that we can run cheap battles on a secondary chain while keeping the NFT tokens on mainnet
+	* Ensure the correct ownership on mainnet so that we can run cheap battles on a secondary chain while keeping the NFT tokens on mainnet
 	* Off Chain on a virtual server instance
 	* [TODO] daemonize server to watch the BoV smart contract for callback events
 		- A guarded event is an event that contains as parameters
@@ -75,7 +75,7 @@ Here are all the Services/Server we had planned out. Not all are implemented.
 	* [TODO] automate sequence director so that it reads pairings and rolls from the BoV Game Contract and generates battle movies from it
 	* [TODO] setup the server on a virtual instance
 6. Battle Server
-	Do the actual prep for the rolls in battle
+	* Do the actual prep for the rolls in battle
 	* [TODO] looks up battle pairing events from the BoV Game contract, takes the loadout and stats of each hero involvement and does the actual calculations on their battle stats. Call BoV Game Contract (the fight() method) with the actual numbers that contract will use to implement the rolls
 	* [TODO] daemonize the server run on a virtual instance and to continuously lookup the BoV Game contract for pairing events
 7. Web Server
